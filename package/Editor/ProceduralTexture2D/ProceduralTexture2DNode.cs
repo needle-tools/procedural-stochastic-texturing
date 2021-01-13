@@ -22,7 +22,7 @@ namespace UnityEditor.ShaderGraph
 
         // Helper class to serialize an asset inside a shader graph
         [Serializable]
-        private class ProceduralTexture2DSerializer
+        internal class ProceduralTexture2DSerializer
         {
             [SerializeField]
             public ProceduralTexture2D proceduralTexture2DAsset;
