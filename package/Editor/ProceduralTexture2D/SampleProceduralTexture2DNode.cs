@@ -111,8 +111,12 @@ namespace UnityEditor.ShaderGraph
             if (edges.Any())
             {
                 var fromSocketRef = edges[0].outputSlot;
+                #if UNITY_2020_2_OR_NEWER
                 var fromNode = owner.GetNodeFromId<ProceduralTexture2DNode>(fromSocketRef.node.objectId);
-                if (fromNode != null)
+				#else
+	            var fromNode = owner.GetNodeFromGuid<ProceduralTexture2DNode>(fromSocketRef.nodeGuid);
+				#endif
+	            if (fromNode != null)
                     proceduralTexture2D = fromNode.proceduralTexture2D;
             }
 
