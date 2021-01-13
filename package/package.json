@@ -30,5 +30,6 @@
       "description": "Shows how to use ShaderGraph Markdown annotations.",
       "path": "Samples~/Basic Usage"
     }
-  ]
+  ],
+  "private": true
 }
