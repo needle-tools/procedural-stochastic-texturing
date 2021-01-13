@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_ProceduralTextureOptions-URP10
+  m_Shader: {fileID: -6465566751694194690, guid: a94f80c3a4e787d4c9aec152175236c6,
+    type: 3}
+  m_ShaderKeywords: _TEXTURING_METHOD_HISTOGRAM_PRESERVING
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: a1ff30291918bdc42a8c2941e21a7157, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleProceduralTexture2D_9858669693514f288b0d9377ad7058aa_Tinput_9:
+        m_Texture: {fileID: 2205973703170954654, guid: d55f63516172e6d489196574578491cc,
+          type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleProceduralTexture2D_9858669693514f288b0d9377ad7058aa_invT_10:
+        m_Texture: {fileID: -7667339980161997932, guid: d55f63516172e6d489196574578491cc,
+          type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Blend: 1
+    - _TEXTURING_METHOD: 0
+    m_Colors:
+    - _Tiling: {r: 10, g: 10, b: 0, a: 0}
