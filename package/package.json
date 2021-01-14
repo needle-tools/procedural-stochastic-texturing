@@ -36,6 +36,5 @@
       "description": "Built-In Samples",
       "path": "Samples~/BuiltIn"
     }
-  ],
-  "private": true
+  ]
 }
