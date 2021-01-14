@@ -24,11 +24,6 @@ namespace UnityEditor.ShaderGraph
             name = "Texture Sampler";
             UpdateNodeAfterDeserialization();
         }
-
-
-        [SerializeField]
-        private TextureType m_TextureType = TextureType.Default;
-
         
         public sealed override void UpdateNodeAfterDeserialization()
         {
@@ -36,21 +31,6 @@ namespace UnityEditor.ShaderGraph
             AddSlot(new SamplerStateMaterialSlot(SamplerOutputId, kSamplerOutputName, kSamplerOutputName, SlotType.Output)); 
             
             RemoveSlotsNameNotMatching(new[] { TextureInputId, SamplerOutputId });
-        }
-
-        #if UNITY_2020_2_OR_NEWER
-        public override void Setup()
-        #else
-        public override void ValidateNode()
-        #endif
-        {
-            var textureSlot = FindInputSlot<Texture2DInputMaterialSlot>(TextureInputId);
-            textureSlot.defaultType = Texture2DShaderProperty.DefaultType.White;
-            #if UNITY_2020_2_OR_NEWER
-            base.Setup();
-            #else
-            base.ValidateNode();
-            #endif
         }
 
         // Node generations
