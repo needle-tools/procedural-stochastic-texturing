@@ -1,6 +1,6 @@
 # Procedural Stochastic Texturing
 
-![Unity Version Compatibility](https://img.shields.io/badge/Unity-2019.4%20%E2%80%94%202021.1-brightgreen) [![openupm](https://img.shields.io/npm/v/com.needle.procedural-stochastic-texturing?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.needle.procedural-stochastic-texturing/)
+![Unity Version Compatibility](https://img.shields.io/badge/Unity-2019.4%20%E2%80%94%202021.1-brightgreen) [![openupm](https://img.shields.io/npm/v/com.needle.stochastic-texturing?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.needle.stochastic-texturing/)
 
 ## What's this?
 
@@ -19,27 +19,27 @@ All of the below are provided in the package as samples (access through Package 
 
 - create a new ShaderGraph
 - create a Texture2D property as usual
-- add a "Sample Procedural Texture Simple" node
+- add a `Sample Procedural Texture Simple` node
 - connect UV, texture and output as usual
-- press "Save Asset"
+- press <kbd>Save Asset</kbd>
 
 ### Histogram-Preserving Version
 
-- generate a "Procedural Texture 2D" asset in the Project
+- generate a `Procedural Texture 2D` asset in the Project
 - set a texture
-- press "Apply" and wait for generation
+- press <kbd>Apply</kbd> and wait for generation
 - create a new ShaderGraph
-- add a "Procedural Texture 2D Asset" node, set your asset
-- add a "Sample Procedural Texture 2D" node, connect the "Asset" node
+- add a `Procedural Texture 2D Asset` node, set your asset
+- add a `Sample Procedural Texture 2D` node, connect the Asset node
 - connect UV and output as usual
-- press "Save Asset"  
+- press <kbd>Save Asset</kbd> 
   *Note: when you change the input texture or any settings of it, the Shader needs to be saved again (values are baked into the shader code).*
 
 ### Built-In StandardStochastic
 
 - create a new material, choose StandardStochastic as shader
 - set your textures
-- set generation options at the top (which textures should be stochastically sampled) and press "Apply"
+- set generation options at the top (which textures should be stochastically sampled) and press <kbd>Apply</kbd>
 
 ### Built-In Surface Shader
 
@@ -69,7 +69,7 @@ All of the below are provided in the package as samples (access through Package 
   This can't currently be set as a material input; the asset has to be "baked" into the shader.
 
 - **Sample Procedural Texture 2D**  
-  Takes the output from the "Procedural Texture 2D Asset" node and samples the texture. It's histogram-preserving, so the transitions look very nice.
+  Takes the output from the `Procedural Texture 2D Asset` node and samples the texture. It's histogram-preserving, so the transitions look very nice.
 
 - **Texture Sampler**  
   Outputs the sampler that goes along with an input texture. This allows the custom function node to use correct anisotropy / filtering settings as specified on the texture asset.
@@ -84,7 +84,7 @@ All of the below are provided in the package as samples (access through Package 
 
 ### Quality Differences between "Tiling and Blending" vs "Histogram Preserving"
 
-The "Sample Procedural Texture Simple" node uses a much simpler blending operation, and does not need a pre-processing step ("just works"). The downside is that the resulting blending quality is lower (it's not histogram preserving). Depending on your use case one or the other might be more suited.
+The `Sample Procedural Texture Simple` node uses a much simpler blending operation, and does not need a pre-processing step ("just works"). The downside is that the resulting blending quality is lower (it's not histogram preserving). Depending on your use case one or the other might be more suited.
 
 ### Supported Render Pipelines
 
