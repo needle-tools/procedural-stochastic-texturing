@@ -1,36 +1,10 @@
 {
   "dependencies": {
-    "com.needle.package-tools": {
-      "version": "file:../../../../../needle-packages-master/development/pfc-packagetools",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.package-manager-ui": "2.0.8",
-        "com.unity.nuget.mono-cecil": "1.10.1-preview.1"
-      }
-    },
-    "com.needle.project-manipulation": {
-      "version": "file:../../../../../needle-packages-master/development/project-manipulation",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.needle.project-manipulation-core": "0.5.1-preview"
-      }
-    },
-    "com.needle.project-manipulation-core": {
-      "version": "file:../../../../../needle-packages-master/development/project-manipulation-core/package",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.needle.stochastic-texturing": {
       "version": "file:../../../package",
       "depth": 0,
       "source": "local",
-      "dependencies": {
-        "com.unity.render-pipelines.core": "7.0.0",
-        "com.unity.shadergraph": "7.0.0"
-      }
+      "dependencies": {}
     },
     "com.needle.stochastic-texturing.test-assets": {
       "version": "file:../../TestAssets",
