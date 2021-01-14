@@ -18,7 +18,7 @@ All of the below are provided in the package as samples (access through Package 
 ### Simple Version
 
 - create a new ShaderGraph
-- create a Texture2D property as usual - make sure to name the reference `_BaseMap`, otherwise you'll get sampler errors
+- create a Texture2D property as usual
 - add a "Sample Procedural Texture Simple" node
 - connect UV, texture and output as usual
 - press "Save Asset"
@@ -43,8 +43,8 @@ All of the below are provided in the package as samples (access through Package 
 
 ### Built-In Surface Shader
 
-- define a Texture2D property, name it `_BaseMap` so that the internal sampler works correctly
-- include the cginc file *after* declaring the texture property
+- define a Texture2D property
+- include the `ProceduralTexturingSimple.cginc` file
   ```
   sampler2D _BaseMap;
   #include "Packages/com.needle.stochastic-texturing/Editor/TilingAndBlending/ProceduralTexturingSimple.cginc"
@@ -52,8 +52,6 @@ All of the below are provided in the package as samples (access through Package 
 - use `tex2DStochastic(_BaseMap, _Blend, IN.uv_BaseMap)` instead of `tex2D(_BaseMap, IN.uv_BaseMap)` (`_Blend` can be a property or just 1.0)
 
 ## Known Issues
-
-- the texture sampler is always taken from the "_BaseMap" prorperty, since ShaderGraph doesn't allow using the actual texture's sampler right now. Make sure you have a texture property that's called "_BaseMap".
 
 - some shader errors are logged on first import (mismatch between Built-In and SRP shader macros). Shouldn't affect functionality. If someone knows how to properly ifdef/macro this, help would be appreciated.
 
@@ -68,11 +66,13 @@ All of the below are provided in the package as samples (access through Package 
 
 - **Procedural Texture 2D Asset**  
   Used as an input node to configure which ProceduralTexture to use.  
-  Note that this can't currently be set as a material input; the asset has to be "baked" into the shader.
+  This can't currently be set as a material input; the asset has to be "baked" into the shader.
 
 - **Sample Procedural Texture 2D**  
-  Takes the output from the "Procedural Texture 2D Asset" node and samples the texture. Histogram-preserving, transitions look very nice.
+  Takes the output from the "Procedural Texture 2D Asset" node and samples the texture. It's histogram-preserving, so the transitions look very nice.
 
+- **Texture Sampler**  
+  Outputs the sampler that goes along with an input texture. This allows the custom function node to use correct anisotropy / filtering settings as specified on the texture asset.
 
 ## Notes
 
