@@ -22,9 +22,19 @@
   "type": "tool",
   "samples": [
     {
-      "displayName": "Markdown for ShaderGraph Samples",
-      "description": "Shows how to use ShaderGraph Markdown annotations.",
-      "path": "Samples~/Basic Usage"
+      "displayName": "URP 7",
+      "description": "URP 7 Samples (Unity 2019.4)",
+      "path": "Samples~/URP7"
+    },
+    {
+      "displayName": "URP 10",
+      "description": "URP 10 Samples (Unity 2020.2)",
+      "path": "Samples~/URP10"
+    },
+    {
+      "displayName": "Built-In",
+      "description": "Built-In Samples",
+      "path": "Samples~/BuiltIn"
     }
   ],
   "private": true

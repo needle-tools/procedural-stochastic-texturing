@@ -74,7 +74,7 @@ MonoBehaviour:
   colorSpaceVector3: {x: -0.39586884, y: 0.099246226, z: 0.3816229}
   compressionScalers: {x: 0.5873217, y: 8.359737, z: 1.7897193, w: 1}
   memoryUsageBytes: 353008
-  currentInput: {fileID: 2800000, guid: 729253977b63c8840886c8cdc1a5fa7f, type: 3}
+  currentInput: {fileID: 2800000, guid: a1ff30291918bdc42a8c2941e21a7157, type: 3}
   currentType: 0
   currentIncludeAlpha: 0
   currentGenerateMipMaps: 1
