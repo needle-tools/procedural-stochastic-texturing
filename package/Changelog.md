@@ -2,6 +2,11 @@
 All notable changes to this package will be documented in this file.\
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-exp.2] 2021-01-14
+- fixed incorrect Readme links and improved formatting
+- added 2021.1 test project
+- simplified TextureSampleNode (removed outdated code)
+
 ## [0.2.0-exp] 2021-01-14
 - added TextureSampler node to get the actual sampler for an input texture
 - fixed requirement of _BaseMap property being present (by using the right sampler)
