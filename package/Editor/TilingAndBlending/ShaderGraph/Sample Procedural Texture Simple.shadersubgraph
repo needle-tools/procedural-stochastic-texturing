@@ -29,11 +29,28 @@
         },
         {
             "m_Id": "71e4a3b2125746ca92a1cb6778f56010"
+        },
+        {
+            "m_Id": "6c943bf0badd4d5e81318ffc8c9e45dd"
         }
     ],
     "m_GroupDatas": [],
     "m_StickyNoteDatas": [],
     "m_Edges": [
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "6c943bf0badd4d5e81318ffc8c9e45dd"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "aa8f8fcd586a46029ba3e4772eb06516"
+                },
+                "m_SlotId": 2
+            }
+        },
         {
             "m_OutputSlot": {
                 "m_Node": {
@@ -74,6 +91,20 @@
                     "m_Id": "aa8f8fcd586a46029ba3e4772eb06516"
                 },
                 "m_SlotId": 4
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ec56429e118a475d985dc0316fffaae9"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "6c943bf0badd4d5e81318ffc8c9e45dd"
+                },
+                "m_SlotId": 0
             }
         },
         {
@@ -141,7 +172,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "2b379789af0148c486541195da668cf8",
     "m_Id": 0,
-    "m_DisplayName": "Vector2",
+    "m_DisplayName": "UV",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -192,6 +223,18 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SamplerStateMaterialSlot",
+    "m_ObjectId": "5b1044ea942a4ef190177edaef4914b2",
+    "m_Id": 1,
+    "m_DisplayName": "Sampler",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Sampler",
+    "m_StageCapability": 3
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.SamplerStateMaterialSlot",
     "m_ObjectId": "5f9dff9c6f0f4bc0b64b0a98ca897ae2",
     "m_Id": 2,
     "m_DisplayName": "Sampler",
@@ -208,7 +251,7 @@
     "m_Guid": {
         "m_GuidSerialized": "a9a2b679-be70-4186-86e5-01c56b804846"
     },
-    "m_Name": "Vector2",
+    "m_Name": "UV",
     "m_DefaultReferenceName": "Vector2_6167ac06b89243438ac199296929537f",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -222,6 +265,41 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.TextureSamplerNode",
+    "m_ObjectId": "6c943bf0badd4d5e81318ffc8c9e45dd",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Texture Sampler",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -375.00006103515627,
+            "y": -95.99999237060547,
+            "width": 201.0,
+            "height": 77.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "7ed48499b63645fda012445e5e605bd1"
+        },
+        {
+            "m_Id": "5b1044ea942a4ef190177edaef4914b2"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_TextureType": 0
 }
 
 {
@@ -281,6 +359,23 @@
         "w": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DInputMaterialSlot",
+    "m_ObjectId": "7ed48499b63645fda012445e5e605bd1",
+    "m_Id": 0,
+    "m_DisplayName": "Texture",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Texture",
+    "m_StageCapability": 3,
+    "m_Texture": {
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    },
+    "m_DefaultType": 0
 }
 
 {
@@ -495,8 +590,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -288.0,
-            "y": -100.0,
+            "x": -532.0000610351563,
+            "y": -187.99998474121095,
             "width": 139.0,
             "height": 34.0
         }

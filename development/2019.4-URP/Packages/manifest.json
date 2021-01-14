@@ -41,9 +41,6 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "com.needle.project-manipulation": "file:../../../../../needle-packages-master/development/project-manipulation",
-    "com.needle.project-manipulation-core": "file:../../../../../needle-packages-master/development/project-manipulation-core/package",
-    "com.needle.package-tools": "file:../../../../../needle-packages-master/development/pfc-packagetools"
+    "com.unity.modules.xr": "1.0.0"
   }
 }

@@ -103,3 +103,4 @@ Ankh.NoLoad
 *.sln
 development/*/.idea
 development/*/UserSettings/EditorUserSettings.asset
+development/*/ProjectSettings/SceneTemplateSettings.json

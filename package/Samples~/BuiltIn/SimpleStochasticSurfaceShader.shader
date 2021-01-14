@@ -22,7 +22,7 @@ Shader "Custom/StandardStochasticSurfaceShader"
         #pragma target 3.0
 
         sampler2D _BaseMap;
-        #include "Packages/com.needle.stochastic-texturing/Editor/TilingAndBlending/ProceduralTexturingSimple.cginc"
+        #include "Packages/com.needle.stochastic-texturing/Editor/TilingAndBlending/ProceduralTexturingSimple.cginc" 
 
         struct Input
         {
