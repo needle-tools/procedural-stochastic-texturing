@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_ProceduralTextureOptions-URP10
   m_Shader: {fileID: -6465566751694194690, guid: a94f80c3a4e787d4c9aec152175236c6, type: 3}
-  m_ShaderKeywords: _TEXTURING_METHOD_TILING_AND_BLENDING
+  m_ShaderKeywords: _TEXTURING_METHOD_HISTOGRAM_PRESERVING
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -45,7 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Blend: 0.46
-    - _TEXTURING_METHOD: 1
+    - _TEXTURING_METHOD: 0
     m_Colors:
     - _Tiling: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []

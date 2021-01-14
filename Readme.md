@@ -13,11 +13,66 @@ Credit for the method goes to Thomas Deliot and Eric Heitz from Unity Technologi
 
 ## Quick Start
 
+All of the below are provided in the package as samples (access through Package Manager).
+
+### Simple Version
+
+- create a new ShaderGraph
+- create a Texture2D property as usual - make sure to name the reference `_BaseMap`, otherwise you'll get sampler errors
+- add a "Sample Procedural Texture Simple" node
+- connect UV, texture and output as usual
+- press "Save Asset"
+
+### Histogram-Preserving Version
+
+- generate a "Procedural Texture 2D" asset in the Project
+- set a texture
+- press "Apply" and wait for generation
+- create a new ShaderGraph
+- add a "Procedural Texture 2D Asset" node, set your asset
+- add a "Sample Procedural Texture 2D" node, connect the "Asset" node
+- connect UV and output as usual
+- press "Save Asset"  
+  *Note: when you change the input texture or any settings of it, the Shader needs to be saved again (values are baked into the shader code).*
+
+### Built-In StandardStochastic
+
+- create a new material, choose StandardStochastic as shader
+- set your textures
+- set generation options at the top (which textures should be stochastically sampled) and press "Apply"
+
+### Built-In Surface Shader
+
+- define a Texture2D property, name it `_BaseMap` so that the internal sampler works correctly
+- include the cginc file *after* declaring the texture property
+  ```
+  sampler2D _BaseMap;
+  #include "Packages/com.needle.stochastic-texturing/Editor/TilingAndBlending/ProceduralTexturingSimple.cginc"
+  ```
+- use `tex2DStochastic(_BaseMap, _Blend, IN.uv_BaseMap)` instead of `tex2D(_BaseMap, IN.uv_BaseMap)` (`_Blend` can be a property or just 1.0)
+
+## Known Issues
+
+- the texture sampler is always taken from the "_BaseMap" prorperty, since ShaderGraph doesn't allow using the actual texture's sampler right now. Make sure you have a texture property that's called "_BaseMap".
+
+- some shader errors are logged on first import (mismatch between Built-In and SRP shader macros). Shouldn't affect functionality. If someone knows how to properly ifdef/macro this, help would be appreciated.
+
+- The histogram-preserving ShaderGraph node doesn't work correctly in Linear color space (looks too bright). The "simple" version works fine.
+
+- Generating a "Procedural Texture 2D" asset doesn't work correctly in Linear color space (totally wrong colors). The "simple" version works fine.
+
 ## Node Reference
 
-- Procedural Texture 2D
-- Sample Procedural Texture 2D
-- Sample Procedural Texture Simple
+- **Sample Procedural Texture Simple**
+  Uses a custom function node to sample the texture. Uses basic blending; not histogram-preserving.
+
+- **Procedural Texture 2D Asset**  
+  Used as an input node to configure which ProceduralTexture to use.  
+  Note that this can't currently be set as a material input; the asset has to be "baked" into the shader.
+
+- **Sample Procedural Texture 2D**  
+  Takes the output from the "Procedural Texture 2D Asset" node and samples the texture. Histogram-preserving, transitions look very nice.
+
 
 ## Notes
 
@@ -35,6 +90,8 @@ The "Sample Procedural Texture Simple" node uses a much simpler blending operati
 
 - URP/HDRP through ShaderGraph
 - BuiltIn through includes and a StandardStochastic shader
+
+See the Samples in Package Manager for more info, especially for Built-In and custom surface shaders.
 
 ## Contact
 <b>[needle — tools for unity](https://needle.tools)</b> • 
