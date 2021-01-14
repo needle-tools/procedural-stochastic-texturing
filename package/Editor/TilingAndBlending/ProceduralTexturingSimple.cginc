@@ -6,6 +6,16 @@
 // https://www.reddit.com/r/Unity3D/comments/dhr5g2/i_made_a_stochastic_texture_sampling_shader/
 // based on the paper from Thomas Deliot and Eric Heitz, https://drive.google.com/file/d/1QecekuuyWgw68HU9tg6ENfrCTCVIjm6l/view
 
+#ifdef UNITY_COMMON_INCLUDED
+// for SRPs
+#define DECLARE_TEX(tex) TEXTURE2D(tex)
+#define GRADIENT_SAMPLE(tex, uv, dx, dy) SAMPLE_TEXTURE2D_GRAD(tex, sampler_BaseMap, uv, dx, dy)
+#else
+// for built-in
+#define DECLARE_TEX(tex) sampler2D tex
+#define GRADIENT_SAMPLE(tex, uv, dx, dy) tex2D(tex, uv, dx, dy) 
+#endif
+
 //hash for randomness
 float2 hash2D2D (float2 s)
 {
@@ -14,7 +24,7 @@ float2 hash2D2D (float2 s)
 }
 
 //stochastic sampling
-float4 tex2DStochastic(TEXTURE2D(tex), SAMPLER(_sampler), float Blend, float2 UV) 
+float4 tex2DStochastic(DECLARE_TEX(tex), /*SAMPLER(_sampler),*/ float Blend, float2 UV)
 {
     //triangle vertices and blend weights
     //BW_vx[0...2].xyz = triangle verts
@@ -42,15 +52,20 @@ float4 tex2DStochastic(TEXTURE2D(tex), SAMPLER(_sampler), float Blend, float2 UV
     float2 dy = ddy(UV); 
 
     //blend samples with calculated weights
-    return mul(SAMPLE_TEXTURE2D_GRAD(tex, sampler_BaseMap, UV + hash2D2D(BW_vx[0].xy), dx, dy), BW_vx[3].x) +  
-            mul(SAMPLE_TEXTURE2D_GRAD(tex, sampler_BaseMap, UV + hash2D2D(BW_vx[1].xy), dx, dy), BW_vx[3].y) + 
-            mul(SAMPLE_TEXTURE2D_GRAD(tex, sampler_BaseMap, UV + hash2D2D(BW_vx[2].xy), dx, dy), BW_vx[3].z); 
+    return mul(GRADIENT_SAMPLE(tex, UV + hash2D2D(BW_vx[0].xy), dx, dy), BW_vx[3].x) +  
+            mul(GRADIENT_SAMPLE(tex, UV + hash2D2D(BW_vx[1].xy), dx, dy), BW_vx[3].y) + 
+            mul(GRADIENT_SAMPLE(tex, UV + hash2D2D(BW_vx[2].xy), dx, dy), BW_vx[3].z); 
 }
 
-void StochasticSample_float(TEXTURE2D(Texture), SAMPLER(Sampler), float Blend, float2 UV, out float4 color) {
-    color = tex2DStochastic(Texture, Sampler, Blend, UV);  
+// ShaderGraph custom functions
+#ifdef UNITY_COMMON_INCLUDED
+
+void StochasticSample_float(DECLARE_TEX(Texture), SAMPLER(Sampler), float Blend, float2 UV, out float4 color) {
+    color = tex2DStochastic(Texture, /*Sampler,*/ Blend, UV);  
 }
 
-void StochasticSample_half(TEXTURE2D(Texture), SAMPLER(Sampler), half Blend, half2 UV, out half4 color) {
-    color = tex2DStochastic(Texture, Sampler, Blend, UV);  
+void StochasticSample_half(DECLARE_TEX(Texture), SAMPLER(Sampler), half Blend, half2 UV, out half4 color) {
+    color = tex2DStochastic(Texture, /*Sampler,*/ Blend, UV);  
 }
+
+#endif
