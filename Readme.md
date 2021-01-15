@@ -1,6 +1,6 @@
 # Procedural Stochastic Texturing
 
-![Unity Version Compatibility](https://img.shields.io/badge/Unity-2019.4%20%E2%80%94%202021.1-brightgreen) [![openupm](https://img.shields.io/npm/v/com.needle.procedural-stochastic-texturing?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.needle.procedural-stochastic-texturing/)
+![Unity Version Compatibility](https://img.shields.io/badge/Unity-2019.4%20%E2%80%94%202021.1-brightgreen) [![openupm](https://img.shields.io/npm/v/com.needle.stochastic-texturing?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.needle.stochastic-texturing/)
 
 ## Please open the <a href="package/Readme.md">Package Readme</a> for more information.
 
