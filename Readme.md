@@ -34,4 +34,4 @@ You can also add it directly from GitHub on Unity 2019.4+ (not recommended, you 
 <b>[needle — tools for unity](https://needle.tools)</b> • 
 [@NeedleTools](https://twitter.com/NeedleTools) • 
 [@marcel_wiessler](https://twitter.com/marcel_wiessler) • 
-[@hybridherbst](https://twitter.com/hybdridherbst)
+[@hybridherbst](https://twitter.com/hybridherbst)
