@@ -10,7 +10,7 @@ using UnityEngine;
 #if UNITY_2020_2_OR_NEWER
 [BlackboardInputInfo(55)]
 #endif
-public class ProceduralTexture2DProperty : AbstractShaderProperty<float>
+public class ProceduralTexture2DProperty : AbstractShaderProperty<LazyLoadReference<ProceduralTexture2D>>
 {
     internal override bool isExposable => true;
     internal override bool isRenamable => true;
@@ -24,9 +24,7 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<float>
             precision = precision,
             #if UNITY_2020_2_OR_NEWER
             overrideHLSLDeclaration = overrideHLSLDeclaration,
-            hlslDeclarationOverride = hlslDeclarationOverride,
-            #else
-            customDisplayName = customDisplayName,
+            hlslDeclarationOverride = hlslDeclarationOverride
             #endif
         };
     }
@@ -102,7 +100,7 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<float>
     internal override AbstractMaterialNode ToConcreteNode()
     {
         var node = new ProceduralTexture2DNode();
-        // node.proceduralTexture2D = value.asset;
+        node.proceduralTexture2D = value.asset;
         return node;
     }
 
