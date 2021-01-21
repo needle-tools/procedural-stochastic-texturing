@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f05be30481931fb4da2f40ccfbf948ff, type: 3}
-  m_Name: New Procedural Texture 2D 1
+  m_Name: forest-ground
   m_EditorClassIdentifier: 
   input: {fileID: 2800000, guid: b7ea334eba35870449b7bb3196b3f432, type: 3}
   type: 0
@@ -73,14 +73,14 @@ MonoBehaviour:
   colorSpaceVector2: {x: -0.1707766, y: 0.30508623, z: -0.22751303}
   colorSpaceVector3: {x: -0.28077495, y: 0.15651856, z: 0.42064166}
   compressionScalers: {x: 0.81301236, y: 2.397286, z: 1.8889049, w: 1}
-  memoryUsageBytes: 0
-  currentInput: {fileID: 0}
+  memoryUsageBytes: 1401968
+  currentInput: {fileID: 2800000, guid: b7ea334eba35870449b7bb3196b3f432, type: 3}
   currentType: 0
   currentIncludeAlpha: 0
-  currentGenerateMipMaps: 0
-  currentFilterMode: 0
-  currentAnisoLevel: 0
-  currentCompressionQuality: 0
+  currentGenerateMipMaps: 1
+  currentFilterMode: 2
+  currentAnisoLevel: 16
+  currentCompressionQuality: 100
 --- !u!28 &6596741562901916659
 Texture2D:
   m_ObjectHideFlags: 0

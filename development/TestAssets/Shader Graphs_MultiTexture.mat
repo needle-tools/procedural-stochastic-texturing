@@ -1,0 +1,134 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_MultiTexture
+  m_Shader: {fileID: -6465566751694194690, guid: 24291ca0422ade54f93b3875aa1c1d59, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_Tinput:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_invT:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_Tinput:
+        m_Texture: {fileID: -824004972098649347, guid: 4f3613cd6424b0843b129b135f181d43, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_invT:
+        m_Texture: {fileID: 6596741562901916659, guid: 4f3613cd6424b0843b129b135f181d43, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap_Tinput:
+        m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap_invT:
+        m_Texture: {fileID: -5537979565428425104, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap_Tinput:
+        m_Texture: {fileID: -6284966705805227999, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap_invT:
+        m_Texture: {fileID: -6217800215216424086, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Proc_Tinput:
+        m_Texture: {fileID: -824004972098649347, guid: 4f3613cd6424b0843b129b135f181d43, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Proc_invT:
+        m_Texture: {fileID: 6596741562901916659, guid: 4f3613cd6424b0843b129b135f181d43, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessMap_Tinput:
+        m_Texture: {fileID: -6284966705805227999, guid: 7bdf0ce5ada7a0a42a8e8233683dc6d2, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessMap_invT:
+        m_Texture: {fileID: -6217800215216424086, guid: 7bdf0ce5ada7a0a42a8e8233683dc6d2, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528: 0
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2: 0
+    - Vector1_0b3150a7878a4a2d9898a80331975b60: 0
+    - _BaseMap: 0
+    - _Blend: 1.75
+    - _BumpMap: 0
+    - _Proc: 0
+    - _RoughnessMap: 0
+    m_Colors:
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_colorSpaceOrigin: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_colorSpaceVector2: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_compressionScalers: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_7cf1532d8574450f9a821892172c7528_inputSize: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_colorSpaceOrigin: {r: 0.22846888, g: -0.21991104, b: -0.1291388, a: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_colorSpaceVector1: {r: 0.91310984, g: 0.7558976, b: 0.328228, a: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_colorSpaceVector2: {r: -0.1707766, g: 0.30508623, b: -0.22751303, a: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_colorSpaceVector3: {r: -0.28077495, g: 0.15651856, b: 0.42064166, a: 0}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
+    - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - Vector2_516080a9afaf4af4b7c2add2cf844c6b: {r: 5, g: 5, b: 0, a: 0}
+    - _BaseMap_colorSpaceOrigin: {r: 0.27660596, g: 0.1427055, b: -0.41435015, a: 0}
+    - _BaseMap_colorSpaceVector1: {r: 0.95537513, g: 0.87544423, b: 0.9392857, a: 0}
+    - _BaseMap_colorSpaceVector2: {r: -0.115296006, g: 0.12797563, b: -0.0020064071, a: 0}
+    - _BaseMap_colorSpaceVector3: {r: -0.28445014, g: -0.24810584, b: 0.52056515, a: 0}
+    - _BaseMap_compressionScalers: {r: 0.62482893, g: 5.8050365, b: 1.5551959, a: 1}
+    - _BaseMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - _BumpMap_colorSpaceOrigin: {r: -0.05647053, g: 0.045251686, b: 0.4111957, a: 0}
+    - _BumpMap_colorSpaceVector1: {r: 1.0293024, g: -0.10246784, b: 0.052308243, a: 0}
+    - _BumpMap_colorSpaceVector2: {r: 0.097908124, g: 1.033064, b: 0.09709336, a: 0}
+    - _BumpMap_colorSpaceVector3: {r: -0.0318413, g: -0.04718319, b: 0.53413314, a: 0}
+    - _BumpMap_compressionScalers: {r: 0.9655195, g: 0.95948505, b: 1.8616508, a: 1}
+    - _BumpMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - _Proc_colorSpaceOrigin: {r: 0.22846888, g: -0.21991104, b: -0.1291388, a: 0}
+    - _Proc_colorSpaceVector1: {r: 0.91310984, g: 0.7558976, b: 0.328228, a: 0}
+    - _Proc_colorSpaceVector2: {r: -0.1707766, g: 0.30508623, b: -0.22751303, a: 0}
+    - _Proc_colorSpaceVector3: {r: -0.28077495, g: 0.15651856, b: 0.42064166, a: 0}
+    - _Proc_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
+    - _Proc_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - _RoughnessMap_colorSpaceOrigin: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
+    - _RoughnessMap_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
+    - _RoughnessMap_colorSpaceVector2: {r: 0.65098035, g: 0.65098035, b: 0.65098035, a: 0}
+    - _RoughnessMap_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
+    - _RoughnessMap_compressionScalers: {r: Infinity, g: 0.8868935, b: Infinity, a: 1}
+    - _RoughnessMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - _Tiling: {r: 5, g: 5, b: 0, a: 0}
+  m_BuildTextureStacks: []
