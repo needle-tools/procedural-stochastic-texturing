@@ -2,13 +2,20 @@
 
 using System.Linq;
 using UnityEditor.Graphing;
+using UnityEditor.ShaderGraph.Drawing.Controls;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UnityEditor.ShaderGraph
 {
     [Title("Input", "Texture", "Sample Procedural Texture 2D")]
-    class SampleProceduralTexture2DNode : AbstractMaterialNode, IGeneratesBodyCode, IMayRequireMeshUV
+    class SampleProceduralTexture2DNode : AbstractMaterialNode,
+	    IGeneratesBodyCode,
+	    #if !UNITY_2020_2_OR_NEWER
+	    IHasSettings,
+	    #endif
+	    IMayRequireMeshUV
     {
         public const int OutputSlotRGBAId = 0;
         public const int OutputSlotRId = 1;
@@ -16,7 +23,7 @@ namespace UnityEditor.ShaderGraph
         public const int OutputSlotBId = 3;
         public const int OutputSlotAId = 4;
         public const int ProceduralTexture2DId = 5;
-        public const int SamplerInput = 6;
+        // public const int SamplerInput = 6;
         public const int UVInput = 7;
         public const int BlendId = 8;
         public const int TinputId = 9;
@@ -34,17 +41,18 @@ namespace UnityEditor.ShaderGraph
         const string kOutputSlotBName = "B";
         const string kOutputSlotAName = "A";
         const string kProceduralTexture2DName = "ProceduralTex2D";
-        const string kSamplerInputName = "Sampler";
+        // const string kSamplerInputName = "Sampler";
         const string kUVInputName = "UV";
         const string kBlendIdName = "Blend";
-        const string kTinputName = "Tinput";
-        const string kInvTinputName = "invT";
-        const string kCompressionScalersId = "compressionScalers";
-        const string kColorSpaceOriginName = "colorSpaceOrigin";
-        const string kColorSpaceVector1Name = "colorSpaceVector1";
-        const string kColorSpaceVector2Name = "colorSpaceVector2";
-        const string kColorSpaceVector3Name = "colorSpaceVector3";
-        const string kInputSizeName = "inputSize";
+        
+        internal const string kTinputName = "Tinput";
+        internal const string kInvTinputName = "invT";
+        internal const string kCompressionScalersId = "compressionScalers";
+        internal const string kColorSpaceOriginName = "colorSpaceOrigin";
+        internal const string kColorSpaceVector1Name = "colorSpaceVector1";
+        internal const string kColorSpaceVector2Name = "colorSpaceVector2";
+        internal const string kColorSpaceVector3Name = "colorSpaceVector3";
+        internal const string kInputSizeName = "inputSize";
 
         public override bool hasPreview { get { return true; } }
 
@@ -70,83 +78,75 @@ namespace UnityEditor.ShaderGraph
 
             // Input slots
             AddSlot(new ProceduralTexture2DInputMaterialSlot(ProceduralTexture2DId, kProceduralTexture2DName, kProceduralTexture2DName, ShaderStageCapability.Fragment, false));
-            AddSlot(new SamplerStateMaterialSlot(SamplerInput, kSamplerInputName, kSamplerInputName, SlotType.Input));
             AddSlot(new UVMaterialSlot(UVInput, kUVInputName, kUVInputName, UVChannel.UV0));
             AddSlot(new Vector1MaterialSlot(BlendId, kBlendIdName, kBlendIdName, SlotType.Input, 0, ShaderStageCapability.Fragment));
 
-            // Hidden slots
-            AddSlot(new Texture2DInputMaterialSlot(TinputId, kTinputName, kTinputName, ShaderStageCapability.Fragment, true));
-            AddSlot(new Texture2DInputMaterialSlot(InvTinputId, kInvTinputName, kInvTinputName, ShaderStageCapability.Fragment, true));
-            AddSlot(new Vector4MaterialSlot(CompressionScalersId, kCompressionScalersId, kCompressionScalersId, SlotType.Input, Vector4.zero, ShaderStageCapability.Fragment, "X", "Y", "Z", "W", true));
-            AddSlot(new Vector3MaterialSlot(ColorSpaceOriginId, kColorSpaceOriginName, kColorSpaceOriginName, SlotType.Input, Vector3.zero, ShaderStageCapability.Fragment, "X", "Y", "Z", true));
-            AddSlot(new Vector3MaterialSlot(ColorSpaceVector1Id, kColorSpaceVector1Name, kColorSpaceVector1Name, SlotType.Input, Vector3.zero, ShaderStageCapability.Fragment, "X", "Y", "Z", true));
-            AddSlot(new Vector3MaterialSlot(ColorSpaceVector2Id, kColorSpaceVector2Name, kColorSpaceVector2Name, SlotType.Input, Vector3.zero, ShaderStageCapability.Fragment, "X", "Y", "Z", true));
-            AddSlot(new Vector3MaterialSlot(ColorSpaceVector3Id, kColorSpaceVector3Name, kColorSpaceVector3Name, SlotType.Input, Vector3.zero, ShaderStageCapability.Fragment, "X", "Y", "Z", true));
-            AddSlot(new Vector3MaterialSlot(InputSizeId, kInputSizeName, kInputSizeName, SlotType.Input, Vector3.zero, ShaderStageCapability.Fragment, "X", "Y", "Z", true));
-
             RemoveSlotsNameNotMatching(new[] { OutputSlotRGBAId, OutputSlotRId, OutputSlotGId, OutputSlotBId, OutputSlotAId,
-                ProceduralTexture2DId, SamplerInput, UVInput, BlendId, TinputId,
+                ProceduralTexture2DId, UVInput, BlendId, TinputId,
                 InvTinputId, CompressionScalersId, ColorSpaceOriginId, ColorSpaceVector1Id, ColorSpaceVector2Id, ColorSpaceVector3Id, InputSizeId });
         }
 
-        public override void ValidateNode()
+        [SerializeField]
+        private TextureType m_TextureType = TextureType.Default;
+
+        [EnumControl("Type")]
+        public TextureType textureType
         {
-            base.ValidateNode();
+	        get { return m_TextureType; }
+	        set
+	        {
+		        if (m_TextureType == value)
+			        return;
+
+		        m_TextureType = value;
+		        Dirty(ModificationScope.Graph);
+
+		        ValidateNode();
+	        }
         }
-
-        
-
 
         public void GenerateNodeCode(ShaderStringBuilder sb, GenerationMode generationMode)
         {
-	        
-        // }
-        //
-        // // Node generations
-        // public virtual void GenerateNodeCode(ShaderGenerator visitor, GraphContext graphContext, GenerationMode generationMode)
-        // {
-            ProceduralTexture2DInputMaterialSlot slot = FindInputSlot<ProceduralTexture2DInputMaterialSlot>(ProceduralTexture2DId);
-
-            // Find Procedural Texture 2D Asset
-            ProceduralTexture2D proceduralTexture2D = slot.proceduralTexture2D;
+	        ProceduralTexture2DInputMaterialSlot slot = FindInputSlot<ProceduralTexture2DInputMaterialSlot>(ProceduralTexture2DId);
+            
+            var slotValue = GetSlotValue(ProceduralTexture2DId, generationMode);
+            
             var edges = owner.GetEdges(slot.slotReference).ToArray();
+            string referenceName = null;
             if (edges.Any())
             {
                 var fromSocketRef = edges[0].outputSlot;
                 #if UNITY_2020_2_OR_NEWER
-                var fromNode = owner.GetNodeFromId<ProceduralTexture2DNode>(fromSocketRef.node.objectId);
+                var fromNode = owner.GetNodeFromId<PropertyNode>(fromSocketRef.node.objectId);
 				#else
-	            var fromNode = owner.GetNodeFromGuid<ProceduralTexture2DNode>(fromSocketRef.nodeGuid);
+	            var fromNode = owner.GetNodeFromGuid<PropertyNode>(fromSocketRef.nodeGuid);
 				#endif
-	            if (fromNode != null)
-                    proceduralTexture2D = fromNode.proceduralTexture2D;
+	            if (fromNode != null) {
+                    // proceduralTexture2D = fromNode.proceduralTexture2D;
+                    #if UNITY_2020_2_OR_NEWER
+					var property = (fromNode.property as ProceduralTexture2DProperty);
+					#else
+                    var property = owner.properties.FirstOrDefault(x => x.guid == fromNode.propertyGuid);
+                    #endif
+                    referenceName = property?.referenceName;
+	            }
             }
-
+            
+            #if !UNITY_2020_2_OR_NEWER
+	        referenceName = "ProceduralTexture_" + GuidEncoder.Encode(guid);
+	        #endif
+            
             var precision = concretePrecision.ToShaderString();
 
-            // No Procedural Texture 2D Asset found, break and initialize output values to default white
-            if (proceduralTexture2D == null || proceduralTexture2D.Tinput == null || proceduralTexture2D.invT == null)
+            string code = null;
+            if (referenceName == null)
             {
-                sb.AppendLine("{0}4 {1} = float4(1, 1, 1, 1);", precision, GetVariableNameForSlot(OutputSlotRGBAId));
-                sb.AppendLine("{0} {1} = {2}.r;", precision, GetVariableNameForSlot(OutputSlotRId), GetVariableNameForSlot(OutputSlotRGBAId));
-                sb.AppendLine("{0} {1} = {2}.g;", precision, GetVariableNameForSlot(OutputSlotGId), GetVariableNameForSlot(OutputSlotRGBAId));
-                sb.AppendLine("{0} {1} = {2}.b;", precision, GetVariableNameForSlot(OutputSlotBId), GetVariableNameForSlot(OutputSlotRGBAId));
-                sb.AppendLine("{0} {1} = {2}.a;", precision, GetVariableNameForSlot(OutputSlotAId), GetVariableNameForSlot(OutputSlotRGBAId));
-                return;
+	            code = $"float4 {GetVariableNameForSlot(OutputSlotRGBAId)} = float4(1,1,1,1);";
+	            sb.AppendLine(code);
+	            return;
             }
-
-            // Apply hidden inputs stored in Procedural Texture 2D Asset to shader
-            FindInputSlot<Texture2DInputMaterialSlot>(TinputId).texture = proceduralTexture2D.Tinput;
-            FindInputSlot<Texture2DInputMaterialSlot>(InvTinputId).texture = proceduralTexture2D.invT;
-            FindInputSlot<Vector4MaterialSlot>(CompressionScalersId).value = proceduralTexture2D.compressionScalers;
-            FindInputSlot<Vector3MaterialSlot>(ColorSpaceOriginId).value = proceduralTexture2D.colorSpaceOrigin;
-            FindInputSlot<Vector3MaterialSlot>(ColorSpaceVector1Id).value = proceduralTexture2D.colorSpaceVector1;
-            FindInputSlot<Vector3MaterialSlot>(ColorSpaceVector2Id).value = proceduralTexture2D.colorSpaceVector2;
-            FindInputSlot<Vector3MaterialSlot>(ColorSpaceVector3Id).value = proceduralTexture2D.colorSpaceVector3;
-            FindInputSlot<Vector3MaterialSlot>(InputSizeId).value = new Vector3(
-                proceduralTexture2D.Tinput.width, proceduralTexture2D.Tinput.height, proceduralTexture2D.invT.height);
-
-            string code =
+            
+            code =
             @"
 				float4 {9} = float4(0, 0, 0, 0);
 				{
@@ -219,24 +219,23 @@ namespace UnityEditor.ShaderGraph
 				}
 			";
             
-            if (proceduralTexture2D != null && proceduralTexture2D.type != ProceduralTexture2D.TextureType.Other)
+            if(textureType == TextureType.Default)
                 code += "{9}.rgb = {4} + {5} * {9}.r + {6} * {9}.g + {7} * {9}.b;";
-            if (proceduralTexture2D != null && proceduralTexture2D.type == ProceduralTexture2D.TextureType.Normal)
+            else if(textureType == TextureType.Normal)
                 code += "{9}.rgb = UnpackNormalmapRGorAG({9});";
 
             code = code.Replace("{0}", GetSlotValue(UVInput, generationMode));
-            code = code.Replace("{1}", GetSlotValue(TinputId, generationMode));
-            code = code.Replace("{2}", GetSlotValue(InvTinputId, generationMode));
-            code = code.Replace("{3}", GetSlotValue(CompressionScalersId, generationMode));
-            code = code.Replace("{4}", GetSlotValue(ColorSpaceOriginId, generationMode));
-            code = code.Replace("{5}", GetSlotValue(ColorSpaceVector1Id, generationMode));
-            code = code.Replace("{6}", GetSlotValue(ColorSpaceVector2Id, generationMode));
-            code = code.Replace("{7}", GetSlotValue(ColorSpaceVector3Id, generationMode));
-            code = code.Replace("{8}", GetSlotValue(InputSizeId, generationMode));
+            code = code.Replace("{1}", referenceName + "_" + kTinputName);
+            code = code.Replace("{2}", referenceName + "_" + kInvTinputName);
+            code = code.Replace("{3}", referenceName + "_" + kCompressionScalersId);
+            code = code.Replace("{4}", referenceName + "_" + kColorSpaceOriginName);
+            code = code.Replace("{5}", referenceName + "_" + kColorSpaceVector1Name);
+            code = code.Replace("{6}", referenceName + "_" + kColorSpaceVector2Name);
+            code = code.Replace("{7}", referenceName + "_" + kColorSpaceVector3Name);
+            code = code.Replace("{8}", referenceName + "_" + kInputSizeName);
             code = code.Replace("{9}", GetVariableNameForSlot(OutputSlotRGBAId));
 
-            var edgesSampler = owner.GetEdges(FindInputSlot<MaterialSlot>(SamplerInput).slotReference);
-            code = code.Replace("{10}", edgesSampler.Any() ? GetSlotValue(SamplerInput, generationMode) : "sampler" + GetSlotValue(TinputId, generationMode));
+            code = code.Replace("{10}", "sampler" + referenceName + "_" + kTinputName);
 
             code = code.Replace("{11}", GetSlotValue(BlendId, generationMode));
 
@@ -248,30 +247,40 @@ namespace UnityEditor.ShaderGraph
             sb.AppendLine("{0} {1} = {2}.a;", precision, GetVariableNameForSlot(OutputSlotAId), GetVariableNameForSlot(OutputSlotRGBAId));
         }
 
-        // public bool RequiresMeshUV(UVChannel channel, ShaderStageCapability stageCapability)
-        // {
-	       //  s_TempSlots.Clear();
-	       //  GetInputSlots(s_TempSlots);
-	       //  foreach (var slot in s_TempSlots)
-	       //  {
-		      //   if (slot.RequiresMeshUV(channel))
-			     //    return true;
-	       //  }
-	       //  return false;
-        // }
-        
         public bool RequiresMeshUV(UVChannel channel, ShaderStageCapability stageCapability = ShaderStageCapability.All)
         {
-	        // s_TempSlots.Clear();
-	        // GetInputSlots(s_TempSlots);
-	        // foreach (var slot in s_TempSlots)
-	        // {
-		       //  if (slot.RequiresMeshUV(channel))
-			      //   return true;
-	        // }
-	        // return false;
 	        return true;
         }
+
+        #if !UNITY_2020_2_OR_NEWER
+	    [SerializeField] private string customDisplayName = null;
+	    
+        public override void CollectShaderProperties(PropertyCollector properties, GenerationMode generationMode)
+        {
+	        var newProperty = new ProceduralTexture2DProperty()
+	        {
+		        overrideReferenceName = "ProceduralTexture_" + GuidEncoder.Encode(guid)
+	        };
+	        if (!string.IsNullOrEmpty(customDisplayName))
+		        newProperty.displayName = customDisplayName;
+	        properties.AddShaderProperty(newProperty);
+	        base.CollectShaderProperties(properties, generationMode);
+        }
+        
+        public VisualElement CreateSettingsElement()
+        {
+	        var v = new VisualElement();
+	        var tf = new TextField("Display Name");
+	        tf.value = customDisplayName;
+	        tf.RegisterValueChangedCallback(evt =>
+	        {
+		        customDisplayName = evt.newValue;
+	        });
+	        v.Add(tf);
+	        return v;
+        }
+        
+        #endif
     }
 }
 

@@ -9,7 +9,7 @@ namespace UnityEditor.ShaderGraph
 {
     [Serializable]
     [FormerName("UnityEditor.ShaderGraph.ProceduralTexture2DInputMaterialSlot")]
-    class ProceduralTexture2DInputMaterialSlot : Vector1MaterialSlot
+    class ProceduralTexture2DInputMaterialSlot : Texture2DMaterialSlot
     {
         // Helper class to serialize an asset inside a shader graph
         [Serializable]
@@ -61,7 +61,7 @@ namespace UnityEditor.ShaderGraph
 
         public ProceduralTexture2DInputMaterialSlot(int slotId, string displayName, string shaderOutputName,
                                           ShaderStageCapability stageCapability = ShaderStageCapability.All, bool hidden = false)
-            : base(slotId, displayName, shaderOutputName, SlotType.Input, 0.0f, stageCapability, hidden: hidden)
+            : base(slotId, displayName, shaderOutputName, SlotType.Input, stageCapability, hidden: hidden)
         {
         }
 

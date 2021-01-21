@@ -120,11 +120,11 @@ MonoBehaviour:
   colorSpaceVector2: {x: 0.097908124, y: 1.033064, z: 0.09709336}
   colorSpaceVector3: {x: -0.0318413, y: -0.04718319, z: 0.53413314}
   compressionScalers: {x: 0.9655195, y: 0.95948505, z: 1.8616508, w: 1}
-  memoryUsageBytes: 0
-  currentInput: {fileID: 0}
+  memoryUsageBytes: 1401968
+  currentInput: {fileID: 2800000, guid: 19a763f89c7a5714e9ef2a056fe16296, type: 3}
   currentType: 0
   currentIncludeAlpha: 0
-  currentGenerateMipMaps: 0
-  currentFilterMode: 0
-  currentAnisoLevel: 0
-  currentCompressionQuality: 0
+  currentGenerateMipMaps: 1
+  currentFilterMode: 2
+  currentAnisoLevel: 16
+  currentCompressionQuality: 100
