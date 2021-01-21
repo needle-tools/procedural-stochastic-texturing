@@ -73,14 +73,14 @@ MonoBehaviour:
   colorSpaceVector2: {x: -0.115296006, y: 0.12797563, z: -0.0020064071}
   colorSpaceVector3: {x: -0.28445014, y: -0.24810584, z: 0.52056515}
   compressionScalers: {x: 0.62482893, y: 5.8050365, z: 1.5551959, w: 1}
-  memoryUsageBytes: 0
-  currentInput: {fileID: 0}
+  memoryUsageBytes: 1401968
+  currentInput: {fileID: 2800000, guid: f1b8e1092ad33d3409787cf8f1d538a1, type: 3}
   currentType: 0
   currentIncludeAlpha: 0
-  currentGenerateMipMaps: 0
-  currentFilterMode: 0
-  currentAnisoLevel: 0
-  currentCompressionQuality: 0
+  currentGenerateMipMaps: 1
+  currentFilterMode: 2
+  currentAnisoLevel: 16
+  currentCompressionQuality: 100
 --- !u!28 &2606539566329812337
 Texture2D:
   m_ObjectHideFlags: 0

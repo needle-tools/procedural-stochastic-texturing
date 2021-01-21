@@ -106,11 +106,11 @@ Material:
     - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
     - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
     - Vector2_516080a9afaf4af4b7c2add2cf844c6b: {r: 5, g: 5, b: 0, a: 0}
-    - _BaseMap_colorSpaceOrigin: {r: 0.27660596, g: 0.1427055, b: -0.41435015, a: 0}
-    - _BaseMap_colorSpaceVector1: {r: 0.95537513, g: 0.87544423, b: 0.9392857, a: 0}
-    - _BaseMap_colorSpaceVector2: {r: -0.115296006, g: 0.12797563, b: -0.0020064071, a: 0}
-    - _BaseMap_colorSpaceVector3: {r: -0.28445014, g: -0.24810584, b: 0.52056515, a: 0}
-    - _BaseMap_compressionScalers: {r: 0.62482893, g: 5.8050365, b: 1.5551959, a: 1}
+    - _BaseMap_colorSpaceOrigin: {r: 0.17547728, g: 0.007429741, b: -0.2500955, a: 0}
+    - _BaseMap_colorSpaceVector1: {r: 0.94877034, g: 0.84032136, b: 0.6906603, a: 0}
+    - _BaseMap_colorSpaceVector2: {r: -0.12630136, g: 0.15778558, b: -0.018474514, a: 0}
+    - _BaseMap_colorSpaceVector3: {r: -0.21727844, g: -0.121645965, b: 0.44648445, a: 0}
+    - _BaseMap_compressionScalers: {r: 0.69282305, g: 4.9272666, b: 1.956067, a: 1}
     - _BaseMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
     - _BumpMap_colorSpaceOrigin: {r: -0.05647053, g: 0.045251686, b: 0.4111957, a: 0}
     - _BumpMap_colorSpaceVector1: {r: 1.0293024, g: -0.10246784, b: 0.052308243, a: 0}
@@ -124,11 +124,11 @@ Material:
     - _Proc_colorSpaceVector3: {r: -0.28077495, g: 0.15651856, b: 0.42064166, a: 0}
     - _Proc_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
     - _Proc_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
-    - _RoughnessMap_colorSpaceOrigin: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
+    - _RoughnessMap_colorSpaceOrigin: {r: 0.09989873, g: 0.09989873, b: 0.09989873, a: 0}
     - _RoughnessMap_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
-    - _RoughnessMap_colorSpaceVector2: {r: 0.65098035, g: 0.65098035, b: 0.65098035, a: 0}
+    - _RoughnessMap_colorSpaceVector2: {r: 0.90010124, g: 0.90010124, b: 0.90010124, a: 0}
     - _RoughnessMap_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
-    - _RoughnessMap_compressionScalers: {r: Infinity, g: 0.8868935, b: Infinity, a: 1}
+    - _RoughnessMap_compressionScalers: {r: Infinity, g: 0.6414281, b: Infinity, a: 1}
     - _RoughnessMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
     - _Tiling: {r: 5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []

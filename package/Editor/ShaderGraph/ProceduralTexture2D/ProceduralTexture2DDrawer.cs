@@ -44,19 +44,21 @@ namespace UnityEditor.ShaderGraph
             asset = (ProceduralTexture2D) EditorGUI.ObjectField(position, label, asset, typeof(ProceduralTexture2D), false);
             if (EditorGUI.EndChangeCheck())
             {
-                kTinputName.textureValue = asset.Tinput;
-                kInvTinputName.textureValue = asset.invT;
-                kCompressionScalersId.vectorValue = asset.compressionScalers;
-                kColorSpaceOriginName.vectorValue = asset.colorSpaceOrigin;
-                kColorSpaceVector1Name.vectorValue = asset.colorSpaceVector1;
-                kColorSpaceVector2Name.vectorValue = asset.colorSpaceVector2;
-                kColorSpaceVector3Name.vectorValue = asset.colorSpaceVector3;
-                kInputSizeName.vectorValue = new Vector3(asset.Tinput.width, asset.Tinput.height, asset.invT.height);
+                kTinputName.textureValue = asset ? asset.Tinput : null;
+                kInvTinputName.textureValue = asset ? asset.invT : null;
+                kCompressionScalersId.vectorValue = asset ? asset.compressionScalers : Vector4.zero;
+                kColorSpaceOriginName.vectorValue = asset ? asset.colorSpaceOrigin : Vector3.zero;
+                kColorSpaceVector1Name.vectorValue = asset ? asset.colorSpaceVector1 : Vector3.zero;
+                kColorSpaceVector2Name.vectorValue = asset ? asset.colorSpaceVector2 : Vector3.zero;
+                kColorSpaceVector3Name.vectorValue = asset ? asset.colorSpaceVector3 : Vector3.zero;
+                kInputSizeName.vectorValue = asset ? new Vector3(asset.Tinput.width, asset.Tinput.height, asset.invT.height) : Vector3.one;
 
-                if (availableAssets.ContainsKey(asset.Tinput))
-                    availableAssets[asset.Tinput] = asset;
-                else
-                    availableAssets.Add(asset.Tinput, asset);
+                if(asset) {
+                    if (availableAssets.ContainsKey(asset.Tinput))
+                        availableAssets[asset.Tinput] = asset;
+                    else
+                        availableAssets.Add(asset.Tinput, asset);
+                }
             }
         }
     }
