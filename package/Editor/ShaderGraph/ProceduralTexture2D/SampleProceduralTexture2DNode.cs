@@ -5,11 +5,17 @@ using UnityEditor.Graphing;
 using UnityEditor.ShaderGraph.Drawing.Controls;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UnityEditor.ShaderGraph
 {
     [Title("Input", "Texture", "Sample Procedural Texture 2D")]
-    class SampleProceduralTexture2DNode : AbstractMaterialNode, IGeneratesBodyCode, IMayRequireMeshUV
+    class SampleProceduralTexture2DNode : AbstractMaterialNode,
+	    IGeneratesBodyCode,
+	    #if !UNITY_2020_2_OR_NEWER
+	    IHasSettings,
+	    #endif
+	    IMayRequireMeshUV
     {
         public const int OutputSlotRGBAId = 0;
         public const int OutputSlotRId = 1;
@@ -117,9 +123,18 @@ namespace UnityEditor.ShaderGraph
 				#endif
 	            if (fromNode != null) {
                     // proceduralTexture2D = fromNode.proceduralTexture2D;
-                    referenceName = (fromNode.property as ProceduralTexture2DProperty)?.referenceName;
+                    #if UNITY_2020_2_OR_NEWER
+					var property = (fromNode.property as ProceduralTexture2DProperty);
+					#else
+                    var property = owner.properties.FirstOrDefault(x => x.guid == fromNode.propertyGuid);
+                    #endif
+                    referenceName = property?.referenceName;
 	            }
             }
+            
+            #if !UNITY_2020_2_OR_NEWER
+	        referenceName = "ProceduralTexture_" + GuidEncoder.Encode(guid);
+	        #endif
             
             var precision = concretePrecision.ToShaderString();
 
@@ -236,6 +251,36 @@ namespace UnityEditor.ShaderGraph
         {
 	        return true;
         }
+
+        #if !UNITY_2020_2_OR_NEWER
+	    [SerializeField] private string customDisplayName = null;
+	    
+        public override void CollectShaderProperties(PropertyCollector properties, GenerationMode generationMode)
+        {
+	        var newProperty = new ProceduralTexture2DProperty()
+	        {
+		        overrideReferenceName = "ProceduralTexture_" + GuidEncoder.Encode(guid)
+	        };
+	        if (!string.IsNullOrEmpty(customDisplayName))
+		        newProperty.displayName = customDisplayName;
+	        properties.AddShaderProperty(newProperty);
+	        base.CollectShaderProperties(properties, generationMode);
+        }
+        
+        public VisualElement CreateSettingsElement()
+        {
+	        var v = new VisualElement();
+	        var tf = new TextField("Display Name");
+	        tf.value = customDisplayName;
+	        tf.RegisterValueChangedCallback(evt =>
+	        {
+		        customDisplayName = evt.newValue;
+	        });
+	        v.Add(tf);
+	        return v;
+        }
+        
+        #endif
     }
 }
 

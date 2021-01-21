@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-393066026355692972
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 11
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_MultiTextureGraphURP7
+  m_Shader: {fileID: -6465566751694194690, guid: 4e2e213982d6aa74d87c9d5464492639, type: 3}
+  m_ShaderKeywords: _DISABLE_DECALS _DISABLE_SSR_TRANSPARENT
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap: {}
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - RayTracingPrepass
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - ProceduralTexture2D_240E385_Tinput:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_240E385_invT:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_DCC7D9B1_Tinput:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_DCC7D9B1_invT:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_E1948F98_Tinput:
+        m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_E1948F98_invT:
+        m_Texture: {fileID: -5537979565428425104, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture_73ECA1F5_Tinput:
+        m_Texture: {fileID: -6284966705805227999, guid: 7bdf0ce5ada7a0a42a8e8233683dc6d2, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture_73ECA1F5_invT:
+        m_Texture: {fileID: -6217800215216424086, guid: 7bdf0ce5ada7a0a42a8e8233683dc6d2, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture_7D7F53C1_Tinput:
+        m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture_7D7F53C1_invT:
+        m_Texture: {fileID: -5537979565428425104, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture_E38C2AA8_Tinput:
+        m_Texture: {fileID: -6284966705805227999, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture_E38C2AA8_invT:
+        m_Texture: {fileID: -6217800215216424086, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - ProceduralTexture2D_240E385: 0
+    - ProceduralTexture2D_DCC7D9B1: 0
+    - ProceduralTexture2D_E1948F98: 0
+    - ProceduralTexture_73ECA1F5: 0
+    - ProceduralTexture_7D7F53C1: 0
+    - ProceduralTexture_E38C2AA8: 0
+    - _AddPrecomputedVelocity: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _BlendMode: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _DepthOffsetEnable: 0
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _EnableBlendModePreserveSpecularLighting: 0
+    - _EnableFogOnTransparent: 1
+    - _OpaqueCullMode: 2
+    - _RayTracing: 0
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 8
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 10
+    - _StencilRefMV: 40
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SupportDecals: 0
+    - _SurfaceType: 0
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - ProceduralTexture2D_240E385_colorSpaceOrigin: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_240E385_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_240E385_colorSpaceVector2: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_240E385_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_240E385_compressionScalers: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_240E385_inputSize: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_DCC7D9B1_colorSpaceOrigin: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_DCC7D9B1_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_DCC7D9B1_colorSpaceVector2: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_DCC7D9B1_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_DCC7D9B1_compressionScalers: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_DCC7D9B1_inputSize: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture2D_E1948F98_colorSpaceOrigin: {r: 0.27660596, g: 0.1427055, b: -0.41435015, a: 0}
+    - ProceduralTexture2D_E1948F98_colorSpaceVector1: {r: 0.95537513, g: 0.87544423, b: 0.9392857, a: 0}
+    - ProceduralTexture2D_E1948F98_colorSpaceVector2: {r: -0.115296006, g: 0.12797563, b: -0.0020064071, a: 0}
+    - ProceduralTexture2D_E1948F98_colorSpaceVector3: {r: -0.28445014, g: -0.24810584, b: 0.52056515, a: 0}
+    - ProceduralTexture2D_E1948F98_compressionScalers: {r: 0.62482893, g: 5.8050365, b: 1.5551959, a: 1}
+    - ProceduralTexture2D_E1948F98_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - ProceduralTexture_73ECA1F5_colorSpaceOrigin: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
+    - ProceduralTexture_73ECA1F5_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture_73ECA1F5_colorSpaceVector2: {r: 0.65098035, g: 0.65098035, b: 0.65098035, a: 0}
+    - ProceduralTexture_73ECA1F5_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
+    - ProceduralTexture_73ECA1F5_compressionScalers: {r: Infinity, g: 0.8868935, b: Infinity, a: 1}
+    - ProceduralTexture_73ECA1F5_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - ProceduralTexture_7D7F53C1_colorSpaceOrigin: {r: 0.27660596, g: 0.1427055, b: -0.41435015, a: 0}
+    - ProceduralTexture_7D7F53C1_colorSpaceVector1: {r: 0.95537513, g: 0.87544423, b: 0.9392857, a: 0}
+    - ProceduralTexture_7D7F53C1_colorSpaceVector2: {r: -0.115296006, g: 0.12797563, b: -0.0020064071, a: 0}
+    - ProceduralTexture_7D7F53C1_colorSpaceVector3: {r: -0.28445014, g: -0.24810584, b: 0.52056515, a: 0}
+    - ProceduralTexture_7D7F53C1_compressionScalers: {r: 0.62482893, g: 5.8050365, b: 1.5551959, a: 1}
+    - ProceduralTexture_7D7F53C1_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - ProceduralTexture_E38C2AA8_colorSpaceOrigin: {r: -0.05647053, g: 0.045251686, b: 0.4111957, a: 0}
+    - ProceduralTexture_E38C2AA8_colorSpaceVector1: {r: 1.0293024, g: -0.10246784, b: 0.052308243, a: 0}
+    - ProceduralTexture_E38C2AA8_colorSpaceVector2: {r: 0.097908124, g: 1.033064, b: 0.09709336, a: 0}
+    - ProceduralTexture_E38C2AA8_colorSpaceVector3: {r: -0.0318413, g: -0.04718319, b: 0.53413314, a: 0}
+    - ProceduralTexture_E38C2AA8_compressionScalers: {r: 0.9655195, g: 0.95948505, b: 1.8616508, a: 1}
+    - ProceduralTexture_E38C2AA8_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - Vector2_6CBAB09B: {r: 5, g: 5, b: 0, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
