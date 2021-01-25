@@ -291,13 +291,12 @@ namespace UnityEditor.ShaderGraph
 
         static void FinalizePrecomputedTextures(ref TextureFormat inputFormat, ProceduralTexture2D target, ref TextureData Tinput, ref TextureData invT)
         {
-            // Serialize precomputed data as new subasset texture. Reuse existing texture if possible to avoid breaking texture references in shadergraph.
-            if(target.Tinput == null)
-            {
-                target.Tinput = new Texture2D(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps, true);
-                AssetDatabase.AddObjectToAsset(target.Tinput, target);
-            }
-            target.Tinput.Resize(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps);
+            // Serialize precomputed gaussianized input as new subasset texture.
+            if (target.Tinput != null)
+                DestroyImmediate(target.Tinput, true);
+            target.Tinput = new Texture2D(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps, true);
+            AssetDatabase.AddObjectToAsset(target.Tinput, target);
+
             target.Tinput.name = target.input.name + "_T";
             target.Tinput.SetPixels(Tinput.data);
             target.Tinput.wrapMode = TextureWrapMode.Repeat;
@@ -315,12 +314,12 @@ namespace UnityEditor.ShaderGraph
             }
             target.Tinput.Apply();
 
-            if (target.invT == null)
-            {
-                target.invT = new Texture2D(invT.width, invT.height, inputFormat, false, true);
-                AssetDatabase.AddObjectToAsset(target.invT, target);
-            }
-            target.invT.Resize(invT.width, invT.height, inputFormat, false);
+            // Serialize precomputed inverse transform LUT as new subasset texture.
+            if (target.invT != null)
+                DestroyImmediate(target.invT, true);
+            target.invT = new Texture2D(invT.width, invT.height, inputFormat, false, true);
+            AssetDatabase.AddObjectToAsset(target.invT, target);
+
             target.invT.name = target.input.name + "_invT";
             target.invT.wrapMode = TextureWrapMode.Clamp;
             target.invT.filterMode = FilterMode.Bilinear;
