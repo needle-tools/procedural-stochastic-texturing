@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.AssetImporters;
+using UnityEditor.Experimental;
 
 namespace UnityEditor.ShaderGraph
 {
@@ -202,7 +204,7 @@ namespace UnityEditor.ShaderGraph
             }
         };
 
-        private static void PreprocessData(ProceduralTexture2D target)
+        internal static void PreprocessData(ProceduralTexture2D target, AssetImportContext importContext = null)
         {
             if (target.input == null)
                 return;
@@ -233,7 +235,7 @@ namespace UnityEditor.ShaderGraph
             EditorUtility.DisplayProgressBar("Pre-processing Procedural Texture Data", target.name, (float)stepCounter++ / (totalSteps - 1));
 
             // Serialize precomputed data and setup material
-            FinalizePrecomputedTextures(ref inputFormat, target, ref Tinput, ref invT);
+            FinalizePrecomputedTextures(ref inputFormat, target, ref Tinput, ref invT, importContext);
 
             target.memoryUsageBytes = target.Tinput.GetRawTextureData().Length + target.invT.GetRawTextureData().Length;
 
@@ -253,21 +255,29 @@ namespace UnityEditor.ShaderGraph
             // Modify input texture import settings temporarily
             string texpath = AssetDatabase.GetAssetPath(input);
             TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(texpath);
-            TextureImporterCompression prev = importer.textureCompression;
-            TextureImporterType prevType = importer.textureType;
+            // TextureImporterCompression prev = importer.textureCompression;
+            // TextureImporterType prevType = importer.textureType;
             bool linearInput = importer.sRGBTexture == false || importer.textureType == TextureImporterType.NormalMap;
-            bool prevReadable = importer.isReadable;
-            if (importer != null)
-            {
-                importer.textureType = TextureImporterType.Default;
-                importer.isReadable = true;
-                importer.textureCompression = TextureImporterCompression.Uncompressed;
-                AssetDatabase.ImportAsset(texpath, ImportAssetOptions.ForceUpdate);
-                inputFormat = input.format;
-            }
+            // bool prevReadable = importer.isReadable;
+            // if (importer != null)
+            // {
+            //     importer.textureType = TextureImporterType.Default;
+            //     importer.isReadable = true;
+            //     importer.textureCompression = TextureImporterCompression.Uncompressed;
+            //     AssetDatabase.ImportAsset(texpath, ImportAssetOptions.ForceUpdate);
+            //     inputFormat = input.format;
+            // }
+            
+            // copy texture to RT, read back the pixels
+            var destRenderTexture = RenderTexture.GetTemporary(input.width, input.height, 0, RenderTextureFormat.ARGB32, linearInput ? RenderTextureReadWrite.Linear : RenderTextureReadWrite.sRGB);
+            Graphics.Blit(input, destRenderTexture);
+
+            var exportTexture = new Texture2D(input.width, input.height, TextureFormat.ARGB32, false, linearInput);
+            exportTexture.ReadPixels(new Rect(0, 0, destRenderTexture.width, destRenderTexture.height), 0, 0);
+            exportTexture.Apply();
 
             // Copy input texture pixel data
-            Color[] colors = input.GetPixels();
+            Color[] colors = exportTexture.GetPixels();
             TextureData res = new TextureData(input.width, input.height);
             for (int x = 0; x < res.width; x++)
             {
@@ -278,24 +288,27 @@ namespace UnityEditor.ShaderGraph
                 }
             }
 
-            // Revert input texture settings
-            if (importer != null)
-            {
-                importer.textureType = prevType;
-                importer.isReadable = prevReadable;
-                importer.textureCompression = prev;
-                AssetDatabase.ImportAsset(texpath, ImportAssetOptions.ForceUpdate);
-            }
+            // // Revert input texture settings
+            // if (importer != null)
+            // {
+            //     importer.textureType = prevType;
+            //     importer.isReadable = prevReadable;
+            //     importer.textureCompression = prev;
+            //     AssetDatabase.ImportAsset(texpath, ImportAssetOptions.ForceUpdate);
+            // }
             return res;
         }
 
-        static void FinalizePrecomputedTextures(ref TextureFormat inputFormat, ProceduralTexture2D target, ref TextureData Tinput, ref TextureData invT)
+        static void FinalizePrecomputedTextures(ref TextureFormat inputFormat, ProceduralTexture2D target, ref TextureData Tinput, ref TextureData invT, AssetImportContext assetImportContext)
         {
             // Serialize precomputed data as new subasset texture. Reuse existing texture if possible to avoid breaking texture references in shadergraph.
             if(target.Tinput == null)
             {
                 target.Tinput = new Texture2D(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps, true);
-                AssetDatabase.AddObjectToAsset(target.Tinput, target);
+                if(assetImportContext != null)
+                    assetImportContext.AddObjectToAsset(nameof(target.Tinput), target.Tinput);
+                else
+                    AssetDatabase.AddObjectToAsset(target.Tinput, target);
             }
             target.Tinput.Resize(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps);
             target.Tinput.name = target.input.name + "_T";
@@ -318,7 +331,10 @@ namespace UnityEditor.ShaderGraph
             if (target.invT == null)
             {
                 target.invT = new Texture2D(invT.width, invT.height, inputFormat, false, true);
-                AssetDatabase.AddObjectToAsset(target.invT, target);
+                if(assetImportContext != null)
+                    assetImportContext.AddObjectToAsset(nameof(target.invT), target.invT);
+                else
+                    AssetDatabase.AddObjectToAsset(target.invT, target);
             }
             target.invT.Resize(invT.width, invT.height, inputFormat, false);
             target.invT.name = target.input.name + "_invT";
@@ -328,8 +344,10 @@ namespace UnityEditor.ShaderGraph
             target.invT.Apply();
 
             // Update asset database
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            if(assetImportContext == null) {
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
         }
 
         private static void Precomputations(
