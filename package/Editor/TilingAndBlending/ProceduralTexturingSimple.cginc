@@ -21,7 +21,8 @@
 float2 hash2D2D (float2 s)
 {
     //magic numbers
-    return frac(sin(fmod(float2(dot(s, float2(127.1,311.7)), dot(s, float2(269.5,183.3))), 3.14159))*43758.5453);
+	return frac(sin(mul(float2x2(127.1, 311.7, 269.5, 183.3), s)) * 43758.5453);
+    //return frac(sin(fmod(float2(dot(s, float2(127.1,311.7)), dot(s, float2(269.5,183.3))), 3.14159))*43758.5453);
 }
 
 //stochastic sampling
