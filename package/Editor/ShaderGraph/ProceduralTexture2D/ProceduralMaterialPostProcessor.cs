@@ -92,7 +92,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         references.Add(path, new List<object>() { proc.input });
                         
                         Debug.Log("Postprocess Asset: " + path);
-                        ProceduralTexture2DEditor.PreprocessData(proc, null);
+                        ProceduralTexture2DEditor.PreprocessData(proc);
                         
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     }

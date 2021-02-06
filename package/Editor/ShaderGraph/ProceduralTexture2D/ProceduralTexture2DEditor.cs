@@ -208,7 +208,7 @@ namespace UnityEditor.ShaderGraph
             }
         };
 
-        internal static void PreprocessData(ProceduralTexture2D target, AssetImportContext importContext = null)
+        internal static void PreprocessData(ProceduralTexture2D target)
         {
             if (target.input == null)
                 return;
@@ -239,7 +239,7 @@ namespace UnityEditor.ShaderGraph
             EditorUtility.DisplayProgressBar("Pre-processing Procedural Texture Data", target.name, (float)stepCounter++ / (totalSteps - 1));
 
             // Serialize precomputed data and setup material
-            FinalizePrecomputedTextures(ref inputFormat, target, ref Tinput, ref invT, importContext);
+            FinalizePrecomputedTextures(ref inputFormat, target, ref Tinput, ref invT);
 
             target.memoryUsageBytes = target.Tinput.GetRawTextureData().Length + target.invT.GetRawTextureData().Length;
 
@@ -303,16 +303,13 @@ namespace UnityEditor.ShaderGraph
             return res;
         }
 
-        static void FinalizePrecomputedTextures(ref TextureFormat inputFormat, ProceduralTexture2D target, ref TextureData Tinput, ref TextureData invT, AssetImportContext assetImportContext)
+        static void FinalizePrecomputedTextures(ref TextureFormat inputFormat, ProceduralTexture2D target, ref TextureData Tinput, ref TextureData invT)
         {
             // Serialize precomputed data as new subasset texture. Reuse existing texture if possible to avoid breaking texture references in shadergraph.
             if(target.Tinput == null)
             {
                 target.Tinput = new Texture2D(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps, true);
-                if(assetImportContext != null)
-                    assetImportContext.AddObjectToAsset(nameof(target.Tinput), target.Tinput);
-                else
-                    AssetDatabase.AddObjectToAsset(target.Tinput, target);
+                AssetDatabase.AddObjectToAsset(target.Tinput, target);
             }
             target.Tinput.Resize(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps);
             target.Tinput.name = target.input.name + "_T";
@@ -335,10 +332,7 @@ namespace UnityEditor.ShaderGraph
             if (target.invT == null)
             {
                 target.invT = new Texture2D(invT.width, invT.height, inputFormat, false, true);
-                if(assetImportContext != null)
-                    assetImportContext.AddObjectToAsset(nameof(target.invT), target.invT);
-                else
-                    AssetDatabase.AddObjectToAsset(target.invT, target);
+                AssetDatabase.AddObjectToAsset(target.invT, target);
             }
             target.invT.Resize(invT.width, invT.height, inputFormat, false);
             target.invT.name = target.input.name + "_invT";
@@ -348,10 +342,8 @@ namespace UnityEditor.ShaderGraph
             target.invT.Apply();
 
             // Update asset database
-            if(assetImportContext == null) {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-            }
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         private static void Precomputations(
