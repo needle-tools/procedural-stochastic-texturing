@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEditor;
 #if UNITY_2020_1_OR_NEWER
@@ -12,10 +11,7 @@ using UnityEditor.Experimental.AssetImporters;
 #endif
 using UnityEditor.Experimental;
 using UnityEditor.ShaderGraph;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Object = UnityEngine.Object;
 
 public class ProceduralMaterialPostProcessor : AssetPostprocessor
 {
@@ -80,8 +76,11 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                     
                     // first import
                     if(!lastImport.ContainsKey(importer))
-                        Debug.LogError("weird import order - OnPostProcessAllAssets called before OnPreprocessAsset??");
-                    if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
+                    {
+                        Debug.LogWarning("Reimporting asset " + path + " because no OnPreprocessAsset was called!");
+                        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+                    }
+                    else if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
                     {
                         // set up custom references that we want to inject in OnPreprocessAsset
                         references.Add(path, refs.Cast<object>().ToList());
@@ -117,14 +116,17 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                     // if (lastImport.ContainsKey(importer))
                     // {
                     if(!lastImport.ContainsKey(importer))
-                        Debug.LogError("weird import order - OnPostProcessAllAssets called before OnPreprocessAsset??");
-                    
-                    if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
+                    {
+                        Debug.LogWarning("Reimporting asset " + path + " because no OnPreprocessAsset was called!");
+                        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+                    }
+                    else if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
                     {
                         // lastImport[importer] = importer.assetTimeStamp;
                         references.Remove(path);
                         references.Add(path, new List<object>() { proc.input });
                         
+                        Debug.Log("Postprocess Asset: " + path);
                         ProceduralTexture2DEditor.PreprocessData(proc, null);
                         
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
@@ -164,7 +166,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             //     Debug.LogWarning("this shouldn't happen, weird import order?");
             
             lastImport[importer] = lastTime;
-            Debug.Log("Last: " + importer.assetTimeStamp);
+            // Debug.Log("Last: " + importer.assetTimeStamp);
 
             if (references.TryGetValue(path, out var refs))
             {
@@ -189,7 +191,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             var importer = AssetImporter.GetAtPath(path);
             lastImport[importer] = importer.assetTimeStamp;
          
-            // Debug.Log("PreProcess for " + path + " at " + importer.assetTimeStamp);
+            Debug.Log("PreProcess for " + path + " at " + importer.assetTimeStamp);
             
             if (references.TryGetValue(path, out var refs))
             {

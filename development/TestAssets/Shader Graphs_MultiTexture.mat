@@ -179,12 +179,12 @@ Material:
     - _Proc_colorSpaceVector3: {r: -0.28077495, g: 0.15651856, b: 0.42064166, a: 0}
     - _Proc_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
     - _Proc_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
-    - _RoughnessMap_colorSpaceOrigin: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
-    - _RoughnessMap_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
-    - _RoughnessMap_colorSpaceVector2: {r: 0.65098035, g: 0.65098035, b: 0.65098035, a: 0}
+    - _RoughnessMap_colorSpaceOrigin: {r: 0.40879497, g: 0.43317187, b: 0.40879497, a: 0}
+    - _RoughnessMap_colorSpaceVector1: {r: 0.016113816, g: -0.03190183, b: 0.016113816, a: 0}
+    - _RoughnessMap_colorSpaceVector2: {r: 0.5550137, g: 0.5606819, b: 0.5550137, a: 0}
     - _RoughnessMap_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
-    - _RoughnessMap_compressionScalers: {r: Infinity, g: 0.8868935, b: Infinity, a: 1}
-    - _RoughnessMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
+    - _RoughnessMap_compressionScalers: {r: 25.506912, g: 1.036704, b: 1.28674276e+14, a: 1}
+    - _RoughnessMap_inputSize: {r: 256, g: 256, b: 8, a: 0}
     - _Tiling: {r: 5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1841555434560156068
