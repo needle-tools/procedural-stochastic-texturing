@@ -54,11 +54,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap_Tinput:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -6284966705805227999, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap_invT:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -6217800215216424086, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Proc_Tinput:
@@ -165,12 +165,12 @@ Material:
     - _BaseMap_colorSpaceVector3: {r: -0.14128634, g: -0.09992353, b: 0.23287576, a: 0}
     - _BaseMap_compressionScalers: {r: 0.7748985, g: 12.416111, b: 3.4466848, a: 1}
     - _BaseMap_inputSize: {r: 128, g: 128, b: 7, a: 0}
-    - _BumpMap_colorSpaceOrigin: {r: 0, g: 0, b: 0, a: 0}
+    - _BumpMap_colorSpaceOrigin: {r: 1, g: 0.17621693, b: 0.15705808, a: 0}
     - _BumpMap_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
-    - _BumpMap_colorSpaceVector2: {r: 0, g: 0, b: 0, a: 0}
-    - _BumpMap_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
-    - _BumpMap_compressionScalers: {r: 0, g: 0, b: 0, a: 0}
-    - _BumpMap_inputSize: {r: 1, g: 1, b: 1, a: 0}
+    - _BumpMap_colorSpaceVector2: {r: 0, g: 0.7529215, b: 0.7411342, a: 0}
+    - _BumpMap_colorSpaceVector3: {r: 0, g: -0.025759444, b: 0.026169132, a: 0}
+    - _BumpMap_compressionScalers: {r: Infinity, g: 0.94653064, b: 27.232975, a: 1}
+    - _BumpMap_inputSize: {r: 128, g: 128, b: 7, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Proc_colorSpaceOrigin: {r: 0.22846888, g: -0.21991104, b: -0.1291388, a: 0}
