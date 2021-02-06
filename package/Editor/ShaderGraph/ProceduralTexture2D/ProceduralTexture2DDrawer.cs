@@ -85,6 +85,7 @@ namespace UnityEditor.ShaderGraph
             // Debug.Log(basePropertyName);
             
             ApplySettings(basePropertyName, procTex, mat);
+            AssetDatabase.SaveAssets();
         }
     }
 }

@@ -159,12 +159,12 @@ Material:
     - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
     - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
     - Vector2_516080a9afaf4af4b7c2add2cf844c6b: {r: 5, g: 5, b: 0, a: 0}
-    - _BaseMap_colorSpaceOrigin: {r: 0.21520668, g: 0.1570929, b: -0.10331493, a: 0}
-    - _BaseMap_colorSpaceVector1: {r: 0.7726535, g: 0.6935751, b: 0.76637363, a: 0}
-    - _BaseMap_colorSpaceVector2: {r: -0.051216766, g: 0.061996967, b: -0.004471368, a: 0}
-    - _BaseMap_colorSpaceVector3: {r: -0.14128634, g: -0.09992353, b: 0.23287576, a: 0}
-    - _BaseMap_compressionScalers: {r: 0.7748985, g: 12.416111, b: 3.4466848, a: 1}
-    - _BaseMap_inputSize: {r: 128, g: 128, b: 7, a: 0}
+    - _BaseMap_colorSpaceOrigin: {r: 0.20609644, g: 0.12711762, b: -0.18077283, a: 0}
+    - _BaseMap_colorSpaceVector1: {r: 0.83221346, g: 0.75033, b: 0.8108074, a: 0}
+    - _BaseMap_colorSpaceVector2: {r: -0.069473214, g: 0.082720734, b: -0.005243291, a: 0}
+    - _BaseMap_colorSpaceVector3: {r: -0.1761477, g: -0.1289162, b: 0.30009863, a: 0}
+    - _BaseMap_compressionScalers: {r: 0.72301024, g: 9.246292, b: 2.6947758, a: 1}
+    - _BaseMap_inputSize: {r: 256, g: 256, b: 8, a: 0}
     - _BumpMap_colorSpaceOrigin: {r: 1, g: 0.17621693, b: 0.15705808, a: 0}
     - _BumpMap_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
     - _BumpMap_colorSpaceVector2: {r: 0, g: 0.7529215, b: 0.7411342, a: 0}
