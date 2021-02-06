@@ -113,20 +113,36 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                 {
                     var importer = AssetImporter.GetAtPath(path);
 
-                    if (!lastImport.ContainsKey(importer))
+                    // Debug.Log("DepVersion: " + AssetDatabase.GlobalArtifactDependencyVersion + " for " + path);
+                    // if (lastImport.ContainsKey(importer))
+                    // {
+                    if(!lastImport.ContainsKey(importer))
                         Debug.LogError("weird import order - OnPostProcessAllAssets called before OnPreprocessAsset??");
-                    if (importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
+                    
+                    if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
                     {
+                        // lastImport[importer] = importer.assetTimeStamp;
+                        references.Remove(path);
                         references.Add(path, new List<object>() { proc.input });
+                        
+                        ProceduralTexture2DEditor.PreprocessData(proc, null);
+                        
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     }
                     else
                     {
-                        references.Remove(path);
+                        // clean up
+                        // references.Remove(path);
+                        // references.Remove(path);
                         
                         // regenerate since the source texture has changed
-                        ProceduralTexture2DEditor.PreprocessData(proc, null);
+                        // ProceduralTexture2DEditor.PreprocessData(proc, null);
+                        Debug.Log("Have done preprocessing and full import should stop here: " + importer.assetTimeStamp);
+
+                        references.Remove(path);
+                        lastImport[importer] = importer.assetTimeStamp;
                     }
+                    // }
                 }
             }
         }
@@ -149,7 +165,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             
             lastImport[importer] = lastTime;
             Debug.Log("Last: " + importer.assetTimeStamp);
-            
+
             if (references.TryGetValue(path, out var refs))
             {
                 foreach(var ref2 in refs)
@@ -159,33 +175,37 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         var proceduralTexture2D =
                             AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(AssetDatabase.GetAssetPath(tex.texture));
 
+                        var assetPath2 = AssetDatabase.GetAssetPath(tex.texture);
+                        Debug.Log("Added dependency to " + path + ": " + assetPath2);
                         // set up the actual dependencies that we want to track
-                        context.DependsOnArtifact(AssetDatabase.GetAssetPath(tex.texture));
-                        context.DependsOnSourceAsset(AssetDatabase.GetAssetPath(tex.texture));
+                        context.DependsOnArtifact(assetPath2);
+                        context.DependsOnSourceAsset(assetPath2);
                     }
                 }
             }
         }
-
-        if (path.EndsWith(".asset", StringComparison.OrdinalIgnoreCase))
+        else if (path.EndsWith(".asset", StringComparison.OrdinalIgnoreCase))
         {
-            if (AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(ProceduralTexture2D))
+            var importer = AssetImporter.GetAtPath(path);
+            lastImport[importer] = importer.assetTimeStamp;
+         
+            // Debug.Log("PreProcess for " + path + " at " + importer.assetTimeStamp);
+            
+            if (references.TryGetValue(path, out var refs))
             {
-                var importer = AssetImporter.GetAtPath(path);
-                lastImport[importer] = importer.assetTimeStamp;
-
-                if (references.TryGetValue(path, out var refs))
+                // Debug.Log("DepVersion: " + AssetDatabase.GlobalArtifactDependencyVersion + " for " + path);
+                // Debug.Log("setting lastImport for " + path + " to " + importer.assetTimeStamp);
+             
+                foreach(var ref2 in refs)
                 {
-                    foreach(var ref2 in refs)
+                    // this should be a texture reference
+                    var tex = ref2 as Texture2D;
+                    if (tex)
                     {
-                        // this should be a texture reference
-                        var tex = ref2 as Texture2D;
-                        if (tex)
-                        {
-                            var assetPath2 = AssetDatabase.GetAssetPath(tex);
-                            context.DependsOnArtifact(assetPath2);
-                            context.DependsOnSourceAsset(assetPath2);
-                        }
+                        var assetPath2 = AssetDatabase.GetAssetPath(tex);
+                        Debug.Log("Added dependency to " + path + ": " + assetPath2);
+                        context.DependsOnArtifact(assetPath2);
+                        context.DependsOnSourceAsset(assetPath2);
                     }
                 }
             }
@@ -207,12 +227,12 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
         bool has_Tinput = false;
         bool has_invT = false;
         var propertyCount = ShaderUtil.GetPropertyCount(shader);
+
+        // Debug.Log("searching for properties");
         for (int i = 0; i < propertyCount; i++)
         {
             if (ShaderUtil.GetPropertyType(shader, i) != ShaderUtil.ShaderPropertyType.TexEnv)
                 continue;
-
-            Debug.Log("searching for properties");
 
             // this is a texture, get it's name
             var texturePropertyName = ShaderUtil.GetPropertyName(shader, i);

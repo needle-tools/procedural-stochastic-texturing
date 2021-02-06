@@ -7,7 +7,7 @@ namespace UnityEditor.ShaderGraph
 {
     [Serializable]
     [CreateAssetMenu(fileName = "New Procedural Texture 2D", menuName = "", order = 1)]
-    public class ProceduralTexture2D : ScriptableObject, ISerializationCallbackReceiver
+    public class ProceduralTexture2D : ScriptableObject
     {
         public enum TextureType
         {
@@ -50,42 +50,6 @@ namespace UnityEditor.ShaderGraph
         public FilterMode currentFilterMode;
         public int currentAnisoLevel;
         public CompressionLevel currentCompressionQuality;
-        public void OnBeforeSerialize()
-        {
-            
-        }
-
-        public void OnAfterDeserialize()
-        {
-            Debug.Log("was deserialized");
-        }
-
-        [ContextMenu("Log Custom Importer")]
-        private void LogCustom()
-        {
-            Debug.Log("custom importer was: " + AssetDatabase.GetImporterOverride(AssetDatabase.GetAssetPath(this)));
-        }
-
-        private void OnValidate()
-        {
-            Debug.Log("OnValidate");
-        }
-
-        [ContextMenu("Set Custom Importer")]
-        void SetCustom()
-        {
-            var path = AssetDatabase.GetAssetPath(this);
-            AssetDatabase.SetImporterOverride<Proc2DImporter>(path);
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-        }
-
-        [ContextMenu("Clear Custom Importer")]
-        void ClearCustom()
-        {
-            var path = AssetDatabase.GetAssetPath(this);
-            AssetDatabase.ClearImporterOverride(path);
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-        }
     }
 }
 
