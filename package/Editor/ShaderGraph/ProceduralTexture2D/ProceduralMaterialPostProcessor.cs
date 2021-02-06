@@ -2,23 +2,71 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEditor;
+#if UNITY_2020_1_OR_NEWER
 using UnityEditor.AssetImporters;
+#else
+using UnityEditor.Experimental.AssetImporters;
+#endif
 using UnityEditor.Experimental;
 using UnityEditor.ShaderGraph;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using Object = UnityEngine.Object;
 
 public class ProceduralMaterialPostProcessor : AssetPostprocessor
 {
     private const string Tinput = "_" + SampleProceduralTexture2DNode.kTinputName;
     private const string invT = "_" + SampleProceduralTexture2DNode.kInvTinputName;
 
+    [InitializeOnLoadMethod]
+    static void SetUpPostProcessors()
+    {
+        trackers = new List<DependencyTracker>();
+        trackers.Add(new DependencyTracker());
+    }
+
+    private static List<DependencyTracker> trackers;
+    
+    class DependencyTracker
+    {
+        public static string ExtensionFilter => ".mat";
+        
+        public bool ShouldAddDependencies(string assetPath, out List<object> references)
+        {
+            references = null;
+            if (AssetDatabase.GetMainAssetTypeAtPath(assetPath) != typeof(Material)) return false;
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(assetPath);
+
+            if (HasProceduralTexture(mat, out var refs))
+            {
+                references = refs.Cast<object>().ToList();
+                return true;
+            }
+
+            return false;
+        }
+    
+        public void OnPostprocessAfterAddingDependencies(string assetPath, List<object> references)
+        {
+            
+        }
+    
+        public void AddDependenciesInPreprocess(string assetPath, List<object> references)
+        {
+            
+        }
+    }
+
     private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
     {
         for(int i = 0; i < importedAssets.Length; i++)
         {
-            if (AssetDatabase.GetMainAssetTypeAtPath(importedAssets[i]) == typeof(Material))
+            var type = AssetDatabase.GetMainAssetTypeAtPath(importedAssets[i]);
+            if (type == typeof(Material))
             {
                 var path = importedAssets[i];
                 
@@ -28,7 +76,6 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                 if (HasProceduralTexture(mat, out var refs))
                 {
                     // TODO can we get the actual, direct artifact dependencies here?
-                    
                     var importer = AssetImporter.GetAtPath(path);
                     
                     // first import
@@ -37,7 +84,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                     if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
                     {
                         // set up custom references that we want to inject in OnPreprocessAsset
-                        references.Add(path, refs);
+                        references.Add(path, refs.Cast<object>().ToList());
                         // force a reimport of this asset right now - so we can inject the dependencies in OnPreprocessAsset
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     }
@@ -53,8 +100,32 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         {
                             var procTex = AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(AssetDatabase.GetAssetPath(tex.texture));
                             Debug.Log("Applying procedural texture "+ procTex.name + "settings to material " + mat.name, mat);
-                            ProceduralTexture2DDrawer.ApplySettings(mat, tex.texturePropertyName, procTex);
+                            ProceduralTexture2DDrawer.ApplySettings(mat, tex.name, procTex);
                         }
+                    }
+                }
+            }
+            else if (type == typeof(ProceduralTexture2D))
+            {
+                var path = importedAssets[i];
+                var proc = AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(path);
+                if (proc.input)
+                {
+                    var importer = AssetImporter.GetAtPath(path);
+
+                    if (!lastImport.ContainsKey(importer))
+                        Debug.LogError("weird import order - OnPostProcessAllAssets called before OnPreprocessAsset??");
+                    if (importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
+                    {
+                        references.Add(path, new List<object>() { proc.input });
+                        AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+                    }
+                    else
+                    {
+                        references.Remove(path);
+                        
+                        // regenerate since the source texture has changed
+                        ProceduralTexture2DEditor.PreprocessData(proc, null);
                     }
                 }
             }
@@ -62,7 +133,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
     }
 
     private static Dictionary<AssetImporter, ulong> lastImport = new Dictionary<AssetImporter, ulong>();
-    private static Dictionary<string, AssetImportContext> contexts = new Dictionary<string, AssetImportContext>();
+    // private static Dictionary<string, AssetImportContext> contexts = new Dictionary<string, AssetImportContext>();
     private void OnPreprocessAsset()
     {
         var path = context.assetPath;
@@ -81,19 +152,53 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             
             if (references.TryGetValue(path, out var refs))
             {
-                foreach(var tex in refs)
+                foreach(var ref2 in refs)
                 {
-                    var proceduralTexture2D = AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(AssetDatabase.GetAssetPath(tex.texture));
-                    
-                    // set up the actual dependencies that we want to track
-                    context.DependsOnArtifact(AssetDatabase.GetAssetPath(tex.texture));
-                    context.DependsOnSourceAsset(AssetDatabase.GetAssetPath(tex.texture));
+                    if (ref2 is TextureReference tex)
+                    {
+                        var proceduralTexture2D =
+                            AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(AssetDatabase.GetAssetPath(tex.texture));
+
+                        // set up the actual dependencies that we want to track
+                        context.DependsOnArtifact(AssetDatabase.GetAssetPath(tex.texture));
+                        context.DependsOnSourceAsset(AssetDatabase.GetAssetPath(tex.texture));
+                    }
+                }
+            }
+        }
+
+        if (path.EndsWith(".asset", StringComparison.OrdinalIgnoreCase))
+        {
+            if (AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(ProceduralTexture2D))
+            {
+                var importer = AssetImporter.GetAtPath(path);
+                lastImport[importer] = importer.assetTimeStamp;
+
+                if (references.TryGetValue(path, out var refs))
+                {
+                    foreach(var ref2 in refs)
+                    {
+                        // this should be a texture reference
+                        var tex = ref2 as Texture2D;
+                        if (tex)
+                        {
+                            var assetPath2 = AssetDatabase.GetAssetPath(tex);
+                            context.DependsOnArtifact(assetPath2);
+                            context.DependsOnSourceAsset(assetPath2);
+                        }
+                    }
                 }
             }
         }
     }
 
-    static bool HasProceduralTexture(Material material, out List<(string texturePropertyName, Texture2D texture)> references)
+    struct TextureReference
+    {
+        public string name;
+        public Texture2D texture;
+    }
+    
+    static bool HasProceduralTexture(Material material, out List<TextureReference> references)
     {
         references = null;
         var shader = material.shader;
@@ -123,15 +228,15 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             var texture = (Texture2D) material.GetTexture(texturePropertyName);
             if (!texture) continue;
 
-            if (references == null) references = new List<(string, Texture2D)>();
-            references.Add((texturePropertyName, texture));
+            if (references == null) references = new List<TextureReference>();
+            references.Add(new TextureReference() { name = texturePropertyName, texture = texture});
         }
 
         if (references?.Count > 0) return true;
         return false;
     }
 
-    private static Dictionary<string, List<(string texturePropertyName, Texture2D texture)>> references = new Dictionary<string, List<(string texturePropertyName, Texture2D texture)>>();
+    private static Dictionary<string, List<object>> references = new Dictionary<string, List<object>>();
     
     void OnPostprocessMaterial(Material material)
     {
