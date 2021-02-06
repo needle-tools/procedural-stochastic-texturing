@@ -3,12 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-#if UNITY_2020_1_OR_NEWER
-using UnityEditor.AssetImporters;
-#else
-using UnityEditor.Experimental.AssetImporters;
-#endif
-using UnityEditor.Experimental;
+using UnityEngine.Experimental.Rendering;
 
 namespace UnityEditor.ShaderGraph
 {
@@ -311,7 +306,7 @@ namespace UnityEditor.ShaderGraph
                 target.Tinput = new Texture2D(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps, true);
                 AssetDatabase.AddObjectToAsset(target.Tinput, target);
             }
-            target.Tinput.Resize(Tinput.width, Tinput.height, inputFormat, target.generateMipMaps);
+            target.Tinput.Resize(Tinput.width, Tinput.height, GraphicsFormatUtility.GetGraphicsFormat(inputFormat, false), target.generateMipMaps);
             target.Tinput.name = target.input.name + "_T";
             target.Tinput.SetPixels(Tinput.data);
             target.Tinput.wrapMode = TextureWrapMode.Repeat;
@@ -334,7 +329,7 @@ namespace UnityEditor.ShaderGraph
                 target.invT = new Texture2D(invT.width, invT.height, inputFormat, false, true);
                 AssetDatabase.AddObjectToAsset(target.invT, target);
             }
-            target.invT.Resize(invT.width, invT.height, inputFormat, false);
+            target.invT.Resize(invT.width, invT.height, GraphicsFormatUtility.GetGraphicsFormat(inputFormat, false), false);
             target.invT.name = target.input.name + "_invT";
             target.invT.wrapMode = TextureWrapMode.Clamp;
             target.invT.filterMode = FilterMode.Bilinear;
