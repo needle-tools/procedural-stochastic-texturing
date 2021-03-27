@@ -37,15 +37,14 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<LazyLoadRefere
     {
         var defaultName = Texture2DShaderProperty.DefaultType.White.ToString().ToLower();
         var hide = "[HideInInspector]";
-        return $@"[ProceduralTexture2D]{referenceName}(""{displayName}"", Float) = {0}
-        {hide}[NoScaleOffset]{referenceName}_{SampleProceduralTexture2DNode.kTinputName}(""{displayName}-Data"", 2D) = ""{defaultName}"" {{}}
-        {hide}[NoScaleOffset]{referenceName}_{SampleProceduralTexture2DNode.kInvTinputName}(""{displayName}-Data"", 2D) = ""{defaultName}"" {{}}
-        {hide}{referenceName}_{SampleProceduralTexture2DNode.kCompressionScalersId}(""{displayName}-Data"", Vector) = (0,0,0,0)
-        {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceOriginName}(""{displayName}-Data"", Vector) = (0,0,0,0)
-        {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceVector1Name }(""{displayName}-Data"", Vector) = (0,0,0,0)
-        {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceVector2Name }(""{displayName}-Data"", Vector) = (0,0,0,0)
-        {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceVector3Name }(""{displayName}-Data"", Vector) = (0,0,0,0)
-        {hide}{referenceName}_{SampleProceduralTexture2DNode.kInputSizeName}(""{displayName}-Data"", Vector) = (0,0,0,0)";
+        return $@"[ProceduralTexture2D][NoScaleOffset]{referenceName}(""{displayName}"", 2D) = ""{defaultName}"" {{}}
+    {hide}[NoScaleOffset]{referenceName}_{SampleProceduralTexture2DNode.kInvTinputName}(""{displayName}-Data"", 2D) = ""{defaultName}"" {{}}
+    {hide}{referenceName}_{SampleProceduralTexture2DNode.kCompressionScalersId}(""{displayName}-Data"", Vector) = (0,0,0,0)
+    {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceOriginName}(""{displayName}-Data"", Vector) = (0,0,0,0)
+    {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceVector1Name }(""{displayName}-Data"", Vector) = (0,0,0,0)
+    {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceVector2Name }(""{displayName}-Data"", Vector) = (0,0,0,0)
+    {hide}{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceVector3Name }(""{displayName}-Data"", Vector) = (0,0,0,0)
+    {hide}{referenceName}_{SampleProceduralTexture2DNode.kInputSizeName}(""{displayName}-Data"", Vector) = (0,0,0,0)";
 
     }
 
@@ -56,10 +55,10 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<LazyLoadRefere
     {
         HLSLDeclaration decl = GetDefaultHLSLDeclaration();
         
-        action(new HLSLProperty(HLSLType._float,        referenceName,                                                                      decl, concretePrecision));
-        action(new HLSLProperty(HLSLType._Texture2D,    $"{referenceName}_{SampleProceduralTexture2DNode.kTinputName}",                decl));
+        action(new HLSLProperty(HLSLType._Texture2D,    $"{referenceName}",                                                            decl));
+        action(new HLSLProperty(HLSLType._SamplerState, "sampler" + $"{referenceName}",                                                decl));
+        action(new HLSLProperty(HLSLType._float4,       referenceName + "_TexelSize",                                                  decl));
         action(new HLSLProperty(HLSLType._Texture2D,    $"{referenceName}_{SampleProceduralTexture2DNode.kInvTinputName}",             decl));
-        action(new HLSLProperty(HLSLType._SamplerState, "sampler" + $"{referenceName}_{SampleProceduralTexture2DNode.kTinputName}",    decl));
         action(new HLSLProperty(HLSLType._SamplerState, "sampler" + $"{referenceName}_{SampleProceduralTexture2DNode.kInvTinputName}", decl));
         action(new HLSLProperty(HLSLType._float4,       $"{referenceName}_{SampleProceduralTexture2DNode.kCompressionScalersId}",      decl, concretePrecision));
         action(new HLSLProperty(HLSLType._float3,       $"{referenceName}_{SampleProceduralTexture2DNode.kColorSpaceOriginName}",      decl, concretePrecision));
@@ -85,6 +84,7 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<LazyLoadRefere
             "float3 " + $"{referenceName}_{SampleProceduralTexture2DNode.kInputSizeName}" + delimiter;
     }
 #endif
+    
 
     #if !UNITY_2020_2_OR_NEWER
     private string objectId => GuidEncoder.Encode(guid);
@@ -94,9 +94,18 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<LazyLoadRefere
 
     internal override string GetPropertyAsArgumentString()
     {
-        return $"{concreteShaderValueType.ToShaderString(concretePrecision.ToShaderString())} {referenceName}";
+        // return $"{concreteShaderValueType.ToShaderString(concretePrecision.ToShaderString())} {referenceName}";
+        return "UnityTexture2D " + referenceName;
     }
 
+    internal override string GetHLSLVariableName(bool isSubgraphProperty)
+    {
+        if (isSubgraphProperty)
+            return referenceName;
+        else
+            return $"UnityBuildTexture2DStructNoScale({referenceName})";
+    }
+    
     internal override AbstractMaterialNode ToConcreteNode()
     {
         var node = new ProceduralTexture2DNode();

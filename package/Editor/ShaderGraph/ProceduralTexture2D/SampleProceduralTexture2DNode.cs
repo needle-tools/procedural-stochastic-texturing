@@ -225,7 +225,7 @@ namespace UnityEditor.ShaderGraph
                 code += "{9}.rgb = UnpackNormalmapRGorAG({9});";
 
             code = code.Replace("{0}", GetSlotValue(UVInput, generationMode));
-            code = code.Replace("{1}", referenceName + "_" + kTinputName);
+            code = code.Replace("{1}", referenceName);
             code = code.Replace("{2}", referenceName + "_" + kInvTinputName);
             code = code.Replace("{3}", referenceName + "_" + kCompressionScalersId);
             code = code.Replace("{4}", referenceName + "_" + kColorSpaceOriginName);
@@ -235,7 +235,7 @@ namespace UnityEditor.ShaderGraph
             code = code.Replace("{8}", referenceName + "_" + kInputSizeName);
             code = code.Replace("{9}", GetVariableNameForSlot(OutputSlotRGBAId));
 
-            code = code.Replace("{10}", "sampler" + referenceName + "_" + kTinputName);
+            code = code.Replace("{10}", "sampler" + referenceName);
 
             code = code.Replace("{11}", GetSlotValue(BlendId, generationMode));
 

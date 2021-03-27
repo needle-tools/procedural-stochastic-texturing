@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 6596741562901916659, guid: 4f3613cd6424b0843b129b135f181d43, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap_Tinput:
         m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
         m_Scale: {x: 1, y: 1}
@@ -50,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -6284966705805227999, guid: 5240ad7eae2b61347a79eceefd4a790a, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap_Tinput:
@@ -67,6 +71,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Proc_invT:
         m_Texture: {fileID: 6596741562901916659, guid: 4f3613cd6424b0843b129b135f181d43, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessMap:
+        m_Texture: {fileID: -6284966705805227999, guid: 7bdf0ce5ada7a0a42a8e8233683dc6d2, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessMap_Tinput:
@@ -159,12 +167,12 @@ Material:
     - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_compressionScalers: {r: 0.81301236, g: 2.397286, b: 1.8889049, a: 1}
     - ProceduralTexture2D_d12b84ac0a22483bbbea13c846fcb1f2_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
     - Vector2_516080a9afaf4af4b7c2add2cf844c6b: {r: 5, g: 5, b: 0, a: 0}
-    - _BaseMap_colorSpaceOrigin: {r: 0.09113829, g: -0.0028093997, b: -0.10919993, a: 0}
-    - _BaseMap_colorSpaceVector1: {r: 0.7890142, g: 0.6941753, b: 0.564161, a: 0}
-    - _BaseMap_colorSpaceVector2: {r: -0.06391784, g: 0.08497407, b: -0.015163783, a: 0}
-    - _BaseMap_colorSpaceVector3: {r: -0.12403272, g: -0.051117983, b: 0.23636588, a: 0}
-    - _BaseMap_compressionScalers: {r: 0.8383845, g: 9.310477, b: 3.6794062, a: 1}
-    - _BaseMap_inputSize: {r: 256, g: 256, b: 8, a: 0}
+    - _BaseMap_colorSpaceOrigin: {r: 0.17547728, g: 0.007429741, b: -0.2500955, a: 0}
+    - _BaseMap_colorSpaceVector1: {r: 0.94877034, g: 0.84032136, b: 0.6906603, a: 0}
+    - _BaseMap_colorSpaceVector2: {r: -0.12630136, g: 0.15778558, b: -0.018474514, a: 0}
+    - _BaseMap_colorSpaceVector3: {r: -0.21727844, g: -0.121645965, b: 0.44648445, a: 0}
+    - _BaseMap_compressionScalers: {r: 0.69282305, g: 4.9272666, b: 1.956067, a: 1}
+    - _BaseMap_inputSize: {r: 1024, g: 1024, b: 10, a: 0}
     - _BumpMap_colorSpaceOrigin: {r: 1, g: 0.17621693, b: 0.15705808, a: 0}
     - _BumpMap_colorSpaceVector1: {r: 0, g: 0, b: 0, a: 0}
     - _BumpMap_colorSpaceVector2: {r: 0, g: 0.7529215, b: 0.7411342, a: 0}
@@ -182,7 +190,7 @@ Material:
     - _RoughnessMap_colorSpaceOrigin: {r: 0.13062222, g: 0.17410396, b: 0.13062222, a: 0}
     - _RoughnessMap_colorSpaceVector1: {r: 0.025585398, g: -0.0512184, b: 0.025585398, a: 0}
     - _RoughnessMap_colorSpaceVector2: {r: 0.79676867, g: 0.79602814, b: 0.79676867, a: 0}
-    - _RoughnessMap_colorSpaceVector3: {r: 0, g: 0, b: 0, a: 0}
+    - _RoughnessMap_colorSpaceVector3: {r: -1.000934e-15, g: 2.5046937e-30, b: 1.000934e-15, a: 0}
     - _RoughnessMap_compressionScalers: {r: 15.946408, g: 0.72483915, b: 7.06447e+14, a: 1}
     - _RoughnessMap_inputSize: {r: 256, g: 256, b: 8, a: 0}
     - _Tiling: {r: 5, g: 5, b: 0, a: 0}

@@ -8,7 +8,9 @@ using UnityEditor.AssetImporters;
 using UnityEditor.Experimental.AssetImporters;
 #endif
 using UnityEditor.ShaderGraph;
+using UnityEditorInternal;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class ProceduralMaterialPostProcessor : AssetPostprocessor
 {
@@ -148,6 +150,17 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
         }
         else if (path.EndsWith(".asset", StringComparison.OrdinalIgnoreCase))
         {
+            // // can we just load a mock here?
+            // var objs = InternalEditorUtility.LoadSerializedFileAndForget(path);
+            // if (objs != null && objs.Length > 0)
+            // {
+            //     Object main = null;
+            //     for (int i = 0; i < objs.Length; i++)
+            //     {
+            //         Debug.Log(i + ": " + objs[i].name + " ," + objs[i].GetType());
+            //     }
+            // }
+            
             var importer = AssetImporter.GetAtPath(path);
             lastImport[importer] = importer.assetTimeStamp;
          

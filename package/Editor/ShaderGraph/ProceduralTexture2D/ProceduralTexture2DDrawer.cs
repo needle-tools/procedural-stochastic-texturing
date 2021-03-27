@@ -31,7 +31,7 @@ namespace UnityEditor.ShaderGraph
                 availableAssets = assets.ToDictionary(x => x.Tinput, x => x);
             }
             
-            var kTinputName =            MaterialEditor.GetMaterialProperty(editor.targets, prop.name + "_" + SampleProceduralTexture2DNode.kTinputName);
+            var kTinputName =            MaterialEditor.GetMaterialProperty(editor.targets, prop.name);
 
             var tex = (Texture2D) kTinputName.textureValue;
             ProceduralTexture2D asset = null;
@@ -60,7 +60,7 @@ namespace UnityEditor.ShaderGraph
         {
             if (materials == null || string.IsNullOrEmpty(propertyName)) return;
             
-            var kTinputName2 =           MaterialEditor.GetMaterialProperty(materials, propertyName + "_" + SampleProceduralTexture2DNode.kTinputName);
+            var kTinputName2 =           MaterialEditor.GetMaterialProperty(materials, propertyName);
             var kInvTinputName =         MaterialEditor.GetMaterialProperty(materials, propertyName + "_" + SampleProceduralTexture2DNode.kInvTinputName);
             var kCompressionScalersId =  MaterialEditor.GetMaterialProperty(materials, propertyName + "_" + SampleProceduralTexture2DNode.kCompressionScalersId);
             var kColorSpaceOriginName =  MaterialEditor.GetMaterialProperty(materials, propertyName + "_" + SampleProceduralTexture2DNode.kColorSpaceOriginName);
@@ -81,7 +81,7 @@ namespace UnityEditor.ShaderGraph
         
         public static void ApplySettings(Material mat, string texturePropertyName, ProceduralTexture2D procTex)
         {
-            var basePropertyName = texturePropertyName.Substring(0, texturePropertyName.Length - SampleProceduralTexture2DNode.kTinputName.Length - 1);
+            var basePropertyName = texturePropertyName;//.Substring(0, texturePropertyName.Length - SampleProceduralTexture2DNode.kTinputName.Length - 1);
             // Debug.Log(basePropertyName);
             
             ApplySettings(basePropertyName, procTex, mat);
