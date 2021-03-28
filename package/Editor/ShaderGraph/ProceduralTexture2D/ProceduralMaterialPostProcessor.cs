@@ -14,11 +14,31 @@ using Object = UnityEngine.Object;
 
 public class ProceduralMaterialPostProcessor : AssetPostprocessor
 {
+    private static bool logDependencies = false;
+
+    static void Log(object obj, Object context = null)
+    {
+        if (!logDependencies) return;
+        Debug.Log(obj, context);
+    }
+    
+    static void LogWarning(object obj, Object context = null)
+    {
+        if (!logDependencies) return;
+        Debug.LogWarning(obj, context);
+    }
+    
+    static void LogError(object obj, Object context = null)
+    {
+        if (!logDependencies) return;
+        Debug.LogError(obj, context);
+    }
+    
     private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
     {
         for(int i = 0; i < importedAssets.Length; i++)
         {
-            Debug.Log("Postprocessing: " + importedAssets[i]);
+            Log("Postprocessing: " + importedAssets[i]);
             var type = AssetDatabase.GetMainAssetTypeAtPath(importedAssets[i]);
             if (type == typeof(Material))
             {
@@ -35,7 +55,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                     // first import
                     if(!lastImport.ContainsKey(importer))
                     {
-                        Debug.LogWarning("Reimporting asset " + path + " because no OnPreprocessAsset was called!");
+                        LogWarning("Reimporting asset " + path + " because no OnPreprocessAsset was called!");
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     }
                     else if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
@@ -57,11 +77,11 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                             var procTex = AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(AssetDatabase.GetAssetPath(tex.texture));
                             if (!procTex || !mat)
                             {
-                                Debug.LogError("Was null: " + procTex + ", " + mat + "; can't postprocess - " + tex.texture, tex.texture);
+                                LogError("Was null: " + procTex + ", " + mat + "; can't postprocess - " + tex.texture, tex.texture);
                             }
                             else
                             {
-                                Debug.Log("Applying procedural texture "+ procTex.name + "  to material " + mat.name, mat);
+                                Log("Applying procedural texture "+ procTex.name + "  to material " + mat.name, mat);
                                 ProceduralTexture2DDrawer.ApplySettings(mat, tex.name, procTex);
                             }
                         }
@@ -84,7 +104,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                     // {
                     if(!lastImport.ContainsKey(importer))
                     {
-                        Debug.LogWarning("Reimporting asset " + path + " because no OnPreprocessAsset was called!");
+                        LogWarning("Reimporting asset " + path + " because no OnPreprocessAsset was called!");
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                     }
                     else if(importer.assetTimeStamp == lastImport[importer] && !references.ContainsKey(path))
@@ -93,7 +113,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         references.Remove(path);
                         references.Add(path, new List<object>() { proc.input });
                         
-                        Debug.Log("Postprocess Asset: " + path);
+                        Log("Postprocess Asset: " + path);
                         ProceduralTexture2DEditor.PreprocessData(proc);
                         
                         AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
@@ -106,7 +126,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         
                         // regenerate since the source texture has changed
                         // ProceduralTexture2DEditor.PreprocessData(proc, null);
-                        Debug.Log("Have done preprocessing and full import should stop here: " + importer.assetTimeStamp);
+                        Log("Have done preprocessing and full import should stop here: " + importer.assetTimeStamp);
 
                         references.Remove(path);
                         lastImport[importer] = importer.assetTimeStamp;
@@ -122,7 +142,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
     private void OnPreprocessAsset()
     {
         var path = context.assetPath;
-        Debug.Log("Preprocessing: " + path);
+        Log("Preprocessing: " + path);
         
         if (path.EndsWith(".mat", StringComparison.OrdinalIgnoreCase))
         {
@@ -140,7 +160,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         var proceduralTexture2D = AssetDatabase.LoadAssetAtPath<ProceduralTexture2D>(AssetDatabase.GetAssetPath(tex.texture));
 
                         var assetPath2 = AssetDatabase.GetAssetPath(tex.texture);
-                        Debug.Log("<b>Added dependency</b> to " + path + ": " + assetPath2);
+                        Log("<b>Added dependency</b> to " + path + ": " + assetPath2);
                         // set up the actual dependencies that we want to track
                         context.DependsOnArtifact(assetPath2);
                         // context.DependsOnSourceAsset(assetPath2);
@@ -149,11 +169,11 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                             var sourceTexture = AssetDatabase.LoadAssetAtPath<Texture>(AssetDatabase.GetAssetPath(proceduralTexture2D.input));
                             var path2 = AssetDatabase.GetAssetPath(sourceTexture);
                             context.DependsOnArtifact(path2);
-                            Debug.Log("<b>Added dependency</b> to " + path + ": " + path2);
+                            Log("<b>Added dependency</b> to " + path + ": " + path2);
                         }
                         else
                         {
-                            Debug.LogWarning("Proc tex input is null: " + proceduralTexture2D, proceduralTexture2D);
+                            LogWarning("Proc tex input is null: " + proceduralTexture2D, proceduralTexture2D);
                         }
                     }
                 }
@@ -175,7 +195,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             var importer = AssetImporter.GetAtPath(path);
             lastImport[importer] = importer.assetTimeStamp;
          
-            Debug.Log("PreProcess for " + path + " at " + importer.assetTimeStamp);
+            Log("PreProcess for " + path + " at " + importer.assetTimeStamp);
             
             if (references.TryGetValue(path, out var refs))
             {
@@ -186,7 +206,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                     if (tex)
                     {
                         var assetPath2 = AssetDatabase.GetAssetPath(tex);
-                        Debug.Log("<b>Added dependency</b> to " + path + ": " + assetPath2);
+                        Log("<b>Added dependency</b> to " + path + ": " + assetPath2);
                         context.DependsOnArtifact(assetPath2);
                         context.DependsOnSourceAsset(assetPath2);
                     }
