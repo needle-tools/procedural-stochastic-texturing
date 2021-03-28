@@ -61,7 +61,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                             }
                             else
                             {
-                                Debug.Log("Applying procedural texture "+ procTex.name + "settings to material " + mat.name, mat);
+                                Debug.Log("Applying procedural texture "+ procTex.name + "  to material " + mat.name, mat);
                                 ProceduralTexture2DDrawer.ApplySettings(mat, tex.name, procTex);
                             }
                         }
@@ -206,7 +206,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
         // Debug.Log("searching for properties");
         for (int i = 0; i < propertyCount; i++)
         {
-            if (ShaderUtil.GetPropertyType(shader, i) != ShaderUtil.ShaderPropertyType.TexEnv)
+            if (ShaderUtil.GetPropertyType(shader, i) != ShaderUtil.ShaderPropertyType.TexEnv) 
                 continue;
 
             // this is a texture, get it's name
@@ -224,7 +224,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
             if (!texture) continue;
 
             if (references == null) references = new List<TextureReference>();
-            references.Add(new TextureReference() { name = texturePropertyName, texture = texture});
+            references.Add(new TextureReference() { name = propertyName, texture = texture});
         }
 
         if (references?.Count > 0) return true;
