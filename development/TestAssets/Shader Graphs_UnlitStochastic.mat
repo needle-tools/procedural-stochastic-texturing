@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_UnlitStochastic
+  m_Shader: {fileID: -6465566751694194690, guid: 69981048286ba8e4e97df6947256007e, type: 3}
+  m_ShaderKeywords: METHOD_COMPLEX
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e:
+        m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_invT:
+        m_Texture: {fileID: 2606539566329812337, guid: e9b9125592fc87f4985ac5ef2e4ec4df, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_f6fd644f97a346af93fbeeb18c69d18a:
+        m_Texture: {fileID: 2800000, guid: f1b8e1092ad33d3409787cf8f1d538a1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - METHOD: 1
+    m_Colors:
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceOrigin: {r: 0.13623112, g: 0.0075265775, b: -0.19410713, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector1: {r: 0.8174306, g: 0.7211513, b: 0.5886033, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector2: {r: -0.07778515, g: 0.10097964, b: -0.015694167, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector3: {r: -0.17874788, g: -0.083255984, b: 0.35024294, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_compressionScalers: {r: 0.80721164, g: 7.7864704, b: 2.487959, a: 1}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_inputSize: {r: 512, g: 512, b: 9, a: 0}
+  m_BuildTextureStacks: []

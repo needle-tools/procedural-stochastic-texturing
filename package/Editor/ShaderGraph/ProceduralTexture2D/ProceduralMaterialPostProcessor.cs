@@ -190,7 +190,7 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
         public Texture2D texture;
     }
     
-    private const string Tinput = "_" + SampleProceduralTexture2DNode.kTinputName;
+    // private const string Tinput = "_" + SampleProceduralTexture2DNode.kTinputName;
     private const string invT = "_" + SampleProceduralTexture2DNode.kInvTinputName;
     
     static bool HasProceduralTexture(Material material, out List<TextureReference> references)
@@ -211,16 +211,16 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
 
             // this is a texture, get it's name
             var texturePropertyName = ShaderUtil.GetPropertyName(shader, i);
-            if (!texturePropertyName.EndsWith(Tinput, StringComparison.Ordinal)) continue;
+            if (!texturePropertyName.EndsWith(invT, StringComparison.Ordinal)) continue;
 
             // check if there's also the other texture property we're looking for, just to be sure
-            var propertyName = texturePropertyName.Substring(0, texturePropertyName.Length - Tinput.Length) + invT;
+            var propertyName = texturePropertyName.Substring(0, texturePropertyName.Length - invT.Length);
             // Debug.Log("1st prop: " + texturePropertyName + ", " + "2nd prop: " + propertyName);
             if (shader.FindPropertyIndex(propertyName) < 0) continue;
 
             // ok, so we found a procedural texture property.
             // let's find the right asset for it
-            var texture = (Texture2D) material.GetTexture(texturePropertyName);
+            var texture = (Texture2D) material.GetTexture(propertyName);
             if (!texture) continue;
 
             if (references == null) references = new List<TextureReference>();

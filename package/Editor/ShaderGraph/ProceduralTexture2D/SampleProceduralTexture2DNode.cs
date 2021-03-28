@@ -45,7 +45,7 @@ namespace UnityEditor.ShaderGraph
         const string kUVInputName = "UV";
         const string kBlendIdName = "Blend";
         
-        internal const string kTinputName = "Tinput";
+        // internal const string kTinputName = "Tinput";
         internal const string kInvTinputName = "invT";
         internal const string kCompressionScalersId = "compressionScalers";
         internal const string kColorSpaceOriginName = "colorSpaceOrigin";

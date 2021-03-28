@@ -8,10 +8,18 @@
 
 #ifdef UNITY_COMMON_INCLUDED
 // for SRPs
+#ifdef UNITY_TEXTURE_INCLUDED
+#define USE_TEX(tex, _sampler) tex
+#define DECLARE_TEX(tex, _sampler) UnityTexture2D tex
+#define GRADIENT_SAMPLE(tex, _sampler, uv, dx, dy) tex.SampleGrad(tex.samplerstate, uv, dx, dy)
+#else
+#define USE_TEX(tex, _sampler) tex, _sampler
 #define DECLARE_TEX(tex, _sampler) TEXTURE2D(tex), SAMPLER(_sampler)
 #define GRADIENT_SAMPLE(tex, _sampler, uv, dx, dy) SAMPLE_TEXTURE2D_GRAD(tex, _sampler, uv, dx, dy)
+#endif
 #else
 // for built-in
+#define USE_TEX(tex, _sampler) tex, _sampler
 #define DECLARE_TEX(tex, _sampler) sampler2D tex
 #define GRADIENT_SAMPLE(tex, _sampler, uv, dx, dy) tex2D(tex, uv, dx, dy)
 #define SAMPLER(ss) float _
@@ -62,11 +70,11 @@ float4 tex2DStochastic(DECLARE_TEX(tex, _sampler), float Blend, float2 UV)
 #ifdef UNITY_COMMON_INCLUDED
 
 void StochasticSample_float(DECLARE_TEX(Texture, Sampler), float Blend, float2 UV, out float4 color) {
-    color = tex2DStochastic(Texture, Sampler, Blend, UV);  
+    color = tex2DStochastic(USE_TEX(Texture, Sampler), Blend, UV);  
 }
 
 void StochasticSample_half(DECLARE_TEX(Texture, Sampler), half Blend, half2 UV, out half4 color) {
-    color = tex2DStochastic(Texture, Sampler, Blend, UV);  
+    color = tex2DStochastic(USE_TEX(Texture, Sampler), Blend, UV);  
 }
 
 #endif
