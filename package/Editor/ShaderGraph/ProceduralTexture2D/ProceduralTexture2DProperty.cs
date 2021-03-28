@@ -108,9 +108,10 @@ public class ProceduralTexture2DProperty : AbstractShaderProperty<LazyLoadRefere
     
     internal override AbstractMaterialNode ToConcreteNode()
     {
-        var node = new ProceduralTexture2DNode();
-        node.proceduralTexture2D = value.asset;
-        return node;
+        // var node = new ProceduralTexture2DNode();
+        // node.proceduralTexture2D = value.asset;
+        // return node;
+        return null;
     }
 
     internal override PreviewProperty GetPreviewMaterialProperty()

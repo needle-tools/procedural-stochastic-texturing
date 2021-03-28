@@ -143,7 +143,18 @@ public class ProceduralMaterialPostProcessor : AssetPostprocessor
                         Debug.Log("<b>Added dependency</b> to " + path + ": " + assetPath2);
                         // set up the actual dependencies that we want to track
                         context.DependsOnArtifact(assetPath2);
-                        context.DependsOnSourceAsset(assetPath2);
+                        // context.DependsOnSourceAsset(assetPath2);
+                        if(proceduralTexture2D && proceduralTexture2D.input)
+                        {
+                            var sourceTexture = AssetDatabase.LoadAssetAtPath<Texture>(AssetDatabase.GetAssetPath(proceduralTexture2D.input));
+                            var path2 = AssetDatabase.GetAssetPath(sourceTexture);
+                            context.DependsOnArtifact(path2);
+                            Debug.Log("<b>Added dependency</b> to " + path + ": " + path2);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Proc tex input is null: " + proceduralTexture2D, proceduralTexture2D);
+                        }
                     }
                 }
             }

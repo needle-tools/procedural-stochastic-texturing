@@ -46,10 +46,10 @@ Material:
     m_Floats:
     - METHOD: 1
     m_Colors:
-    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceOrigin: {r: 0.13623112, g: 0.0075265775, b: -0.19410713, a: 0}
-    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector1: {r: 0.8174306, g: 0.7211513, b: 0.5886033, a: 0}
-    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector2: {r: -0.07778515, g: 0.10097964, b: -0.015694167, a: 0}
-    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector3: {r: -0.17874788, g: -0.083255984, b: 0.35024294, a: 0}
-    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_compressionScalers: {r: 0.80721164, g: 7.7864704, b: 2.487959, a: 1}
-    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_inputSize: {r: 512, g: 512, b: 9, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceOrigin: {r: 0.09113829, g: -0.0028093997, b: -0.10919993, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector1: {r: 0.7890142, g: 0.6941753, b: 0.564161, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector2: {r: -0.06391784, g: 0.08497407, b: -0.015163783, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_colorSpaceVector3: {r: -0.12403272, g: -0.051117983, b: 0.23636588, a: 0}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_compressionScalers: {r: 0.8383845, g: 9.310477, b: 3.6794062, a: 1}
+    - ProceduralTexture2D_e01d4094102745dbbb0d1d1ea8a2e29e_inputSize: {r: 256, g: 256, b: 8, a: 0}
   m_BuildTextureStacks: []
